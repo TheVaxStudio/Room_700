@@ -1531,7 +1531,7 @@ GameObject:
   - component: {fileID: 4929456792762934084}
   m_Layer: 5
   m_Name: SettingsPanelText
-  m_TagString: Untagged
+  m_TagString: SettingsText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1552,8 +1552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 559.8754, y: 100.58002}
-  m_SizeDelta: {x: 800.2491, y: 292.8561}
+  m_AnchoredPosition: {x: 559.8754, y: 226.21875}
+  m_SizeDelta: {x: 800.2491, y: 153.9624}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6775930004608734657
 CanvasRenderer:
@@ -1610,8 +1610,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5119,7 +5119,7 @@ GameObject:
   - component: {fileID: 3563520090270189766}
   m_Layer: 5
   m_Name: MainMenu
-  m_TagString: Untagged
+  m_TagString: MainMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

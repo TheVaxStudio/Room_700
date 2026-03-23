@@ -60,7 +60,8 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
             InfoText.text = "Pressione R para começar";
         }
 
-        if (SettingsPanelText != null)
+        if (SettingsPanelText != null &&
+        SettingsPanelText.tag == "SettingsText")
         {
             SettingsPanelText.text = "Clique para abrir as configurações";
 
