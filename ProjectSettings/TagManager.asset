@@ -29,6 +29,9 @@ TagManager:
   - Door45
   - KeyRoom80
   - DoorRoom80
+  - SettingsText
+  - MainMenu
+  - DoorRoom100
   layers:
   - Default
   - TransparentFX
