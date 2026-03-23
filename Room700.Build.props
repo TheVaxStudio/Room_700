@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <!-- Redireciona bin/obj para uma pasta fora do diretório do projeto -->
+        <!-- Vai criar: ../VSBuildOutputs/bin/Debug (ou Release) e ../VSBuildOutputs/obj/Debug -->
+        <OutputPath>$(MSBuildProjectDirectory)/../VSBuildOutputs/bin/$(Configuration)/</OutputPath>
+        <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/../VSBuildOutputs/obj/$(Configuration)/</BaseIntermediateOutputPath>
+        <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    </PropertyGroup>
+</Project>

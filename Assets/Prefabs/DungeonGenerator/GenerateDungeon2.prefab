@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1858879401484502974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686516700006412487}
+  - component: {fileID: 6733891966754345143}
+  m_Layer: 0
+  m_Name: GenerateDungeon2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &686516700006412487
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858879401484502974}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6733891966754345143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858879401484502974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7da7f1c90e11447adb216f4fe4d01e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator2D
+  width: 512
+  height: 512
+  floorPrefab: {fileID: 2350098882405641365, guid: 358842a9bb98b0e499b7699178557908, type: 3}
+  wallPrefab: {fileID: 4815251270761980214, guid: 1ece671a1199cb944bb72d53d13aa321, type: 3}
+  playerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
+  npcPrefab: {fileID: 3980792011691525691, guid: 305d1a1ea7bed3e46acc9f019dd35052, type: 3}
+  doorPrefab: {fileID: 6995773550775222975, guid: 9c231d12afce5854198a3ec41c590bf6, type: 3}
+  itemPrefabs:
+  - {fileID: 4815204354568481180, guid: 209c2d2b4fc7f2a4e9501d968b302635, type: 3}
+  - {fileID: 1886838678662799578, guid: 10b6f0946df0ce04b82b8cb135fead52, type: 3}
+  roomSize: 64
+  corridorWidth: 2
+  roomsPerRow: 4
+  floorsParent: {fileID: 0}
+  wallsParent: {fileID: 0}
+  charactersParent: {fileID: 0}
+  itemsParent: {fileID: 0}
+  rooms:
+  - x: 20
+    y: 30
+    w: 50
+    h: 100
