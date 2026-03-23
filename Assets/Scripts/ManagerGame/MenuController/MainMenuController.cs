@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class LanguageData
@@ -33,14 +34,14 @@ public class LanguageRoot
 }
 
 
-public class MainMenuController : MonoBehaviour
+public class MainMenuController : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI")]
     public Button StartButton;
     
     public TextMeshProUGUI InfoText;
 
-    public Button SettingsPanelText;
+    public TextMeshProUGUI SettingsPanelText;
 
     public GameObject SettingsPanel;
 
@@ -54,14 +55,16 @@ public class MainMenuController : MonoBehaviour
             StartButton.onClick.AddListener(LoadScene);
         }
 
-        if (SettingsPanelText != null)
-        {
-            SettingsPanelText.onClick.AddListener(ToggleSettingsPanel);
-        }
-
         if (InfoText != null)
         {
             InfoText.text = "Pressione R para começar";
+        }
+
+        if (SettingsPanelText != null)
+        {
+            SettingsPanelText.text = "Click to toggle settings";
+
+            ToggleSettingsPanel();
         }
     }
 
@@ -71,6 +74,11 @@ public class MainMenuController : MonoBehaviour
         {
             LoadScene();
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        ToggleSettingsPanel();
     }
 
     void ToggleSettingsPanel()
