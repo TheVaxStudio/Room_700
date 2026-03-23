@@ -1,0 +1,147 @@
+{
+  "languages": [
+    {
+      "code": "PT BR",
+      "start": "Iniciar",
+      "quit": "Sair",
+      "language": "Idioma: Português Brasil",
+      "info": "Pressione R para iniciar",
+      "settings": "Configurações",
+      "back": "Voltar",
+      "volume": "Volume",
+      "quality": "Qualidade Gráfica"
+    },
+    {
+      "code": "EN US",
+      "start": "Start",
+      "quit": "Quit",
+      "language": "Language: English",
+      "info": "Press R to Start",
+      "settings": "Settings",
+      "back": "Back",
+      "volume": "Volume",
+      "quality": "Graphics Quality"
+    },
+    {
+      "code": "Italiano",
+      "start": "Avvia",
+      "quit": "Esci",
+      "language": "Lingua: Italiano",
+      "info": "Premi R per iniziare",
+      "settings": "Impostazioni",
+      "back": "Indietro",
+      "volume": "Volume",
+      "quality": "Qualità Grafica"
+    },
+    {
+      "code": "ES",
+      "start": "Iniciar",
+      "quit": "Salir",
+      "language": "Idioma: Español",
+      "info": "Presiona R para iniciar",
+      "settings": "Configuración",
+      "back": "Volver",
+      "volume": "Volumen",
+      "quality": "Calidad Gráfica"
+    },
+    {
+      "code": "FR",
+      "start": "Démarrer",
+      "quit": "Quitter",
+      "language": "Langue : Français",
+      "info": "Appuyez sur R pour démarrer",
+      "settings": "Paramètres",
+      "back": "Retour",
+      "volume": "Volume",
+      "quality": "Qualité Graphique"
+    },
+    {
+      "code": "DE",
+      "start": "Starten",
+      "quit": "Beenden",
+      "language": "Sprache: Deutsch",
+      "info": "Drücke R zum Starten",
+      "settings": "Einstellungen",
+      "back": "Zurück",
+      "volume": "Lautstärke",
+      "quality": "Grafikqualität"
+    },
+    {
+      "code": "JP",
+      "start": "開始",
+      "quit": "終了",
+      "language": "言語: 日本語",
+      "info": "Rキーで開始",
+      "settings": "設定",
+      "back": "戻る",
+      "volume": "音量",
+      "quality": "画質"
+    },
+    {
+      "code": "CN",
+      "start": "开始",
+      "quit": "退出",
+      "language": "语言: 中文",
+      "info": "按下 R 开始",
+      "settings": "设置",
+      "back": "返回",
+      "volume": "音量",
+      "quality": "画质"
+    },
+    {
+      "code": "RU",
+      "start": "Начать",
+      "quit": "Выйти",
+      "language": "Язык: Русский",
+      "info": "Нажмите R, чтобы начать",
+      "settings": "Настройки",
+      "back": "Назад",
+      "volume": "Громкость",
+      "quality": "Качество графики"
+    },
+    {
+      "code": "AR",
+      "start": "ابدأ",
+      "quit": "خروج",
+      "language": "اللغة: العربية",
+      "info": "اضغط R للبدء",
+      "settings": "الإعدادات",
+      "back": "رجوع",
+      "volume": "مستوى الصوت",
+      "quality": "جودة الرسومات"
+    },
+    {
+      "code": "HI",
+      "start": "शुरू करें",
+      "quit": "बंद करें",
+      "language": "भाषा: हिन्दी",
+      "info": "शुरू करने के लिए R दबाएँ",
+      "settings": "सेटिंग्स",
+      "back": "वापस",
+      "volume": "वॉल्यूम",
+      "quality": "ग्राफ़िक्स गुणवत्ता"
+    },
+    {
+      "code": "KR",
+      "start": "시작",
+      "quit": "종료",
+      "language": "언어: 한국어",
+      "info": "R 키를 눌러 시작",
+      "settings": "설정",
+      "back": "뒤로",
+      "volume": "음량",
+      "quality": "그래픽 품질"
+    },
+    {
+      "code": "TR",
+      "start": "Başlat",
+      "quit": "Çıkış",
+      "language": "Dil: Türkçe",
+      "info": "Başlamak için R tuşuna bas",
+      "settings": "Ayarlar",
+      "back": "Geri",
+      "volume": "Ses",
+      "quality": "Grafik Kalitesi"
+    }
+  ]
+}

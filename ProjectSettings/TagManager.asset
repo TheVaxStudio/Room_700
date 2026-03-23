@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Door01
+  - House01
+  - Door02
+  - Door03
+  - Door04
+  - Rose
+  - Lyra
+  - AnalogEffect
+  - Stairs
+  - ExitRoom01
+  - Door05
+  - KeyItem
+  - Door06
+  - Door15
+  - KeyRoom20
+  - DoorRoom20
+  - Room20
+  - Floor
+  - Door35
+  - Arthur
+  - Walls
+  - DoorRoom50
+  - Door45
+  - KeyRoom80
+  - DoorRoom80
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Portal
+  - Water
+  - UI
+  - PortalTrigger
+  - Player
+  - Walls
+  - KeyItem
+  - Hud
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  m_RenderingLayers:
+  - Default
