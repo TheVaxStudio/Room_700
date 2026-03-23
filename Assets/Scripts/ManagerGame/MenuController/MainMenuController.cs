@@ -40,6 +40,10 @@ public class MainMenuController : MonoBehaviour
     
     public TextMeshProUGUI InfoText;
 
+    public Button SettingsPanelText;
+
+    public GameObject SettingsPanel;
+
     [Header("Scene Name")]
     public string SceneToLoad = "Outside";
 
@@ -48,6 +52,11 @@ public class MainMenuController : MonoBehaviour
         if (StartButton != null)
         {
             StartButton.onClick.AddListener(LoadScene);
+        }
+
+        if (SettingsPanelText != null)
+        {
+            SettingsPanelText.onClick.AddListener(ToggleSettingsPanel);
         }
 
         if (InfoText != null)
@@ -61,6 +70,14 @@ public class MainMenuController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             LoadScene();
+        }
+    }
+
+    void ToggleSettingsPanel()
+    {
+        if (SettingsPanel != null)
+        {
+            SettingsPanel.SetActive(!SettingsPanel.activeSelf);
         }
     }
 
