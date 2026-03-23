@@ -62,7 +62,7 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
 
         if (SettingsPanelText != null)
         {
-            SettingsPanelText.text = "Click to toggle settings";
+            SettingsPanelText.text = "Clique para abrir as configurações";
 
             ToggleSettingsPanel();
         }
