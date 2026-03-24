@@ -16,19 +16,21 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
 
     public GameObject SettingsPanel;
 
+    readonly KeyCode R = KeyCode.R;
+
     [Header("Scene Name")]
     public string SceneToLoad = "Outside";
 
     void Start()
     {
-        if (StartButton != null)
-        {
-            StartButton.onClick.AddListener(LoadScene);
-        }
-
         if (InfoText != null)
         {
             InfoText.text = "Pressione R para começar";
+
+            if (Input.GetKeyDown(R))
+            {
+                LoadScene();
+            }
         }
 
         if (SettingsPanelText != null &&
