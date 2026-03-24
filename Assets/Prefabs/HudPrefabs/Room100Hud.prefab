@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 6002051714677340448}
   - component: {fileID: 4963496358601025053}
   - component: {fileID: 9011254422907226719}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: LyraHud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
