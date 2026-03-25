@@ -619,10 +619,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1792155665}
     - target: {fileID: 505030879817273943, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
-      propertyPath: StopDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 505030879817273943, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
       propertyPath: WallsTilemap
       value: 
       objectReference: {fileID: 874845291}
