@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 6057746954841093993}
   - component: {fileID: 2827399961368006654}
   - component: {fileID: 6473487609772749461}
-  - component: {fileID: 7791443783224234013}
+  - component: {fileID: 505030879817273943}
   m_Layer: 0
   m_Name: Arthur
   m_TagString: Arthur
@@ -360,7 +360,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7791443783224234013
+--- !u!114 &505030879817273943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -369,10 +369,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8725705467343262888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 082f75d08a9a10744a13b6380ce1b995, type: 3}
+  m_Script: {fileID: 11500000, guid: 0aa2fced3b020224e92fe9f98a9ce87c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
+  m_EditorClassIdentifier: Assembly-CSharp::NpcAdvancedMovement
   Player: {fileID: 0}
-  ObstacleMask:
-    serializedVersion: 2
-    m_Bits: 256
+  WalkableTilemap: {fileID: 0}
+  Sr: {fileID: 5697001204817741236}
+  MoveSpeed: 2.5
+  StopDistance: 0.1
+  RepathInterval: 0.35
+  DetectionRange: 12
+  AllowDiagonalMovement: 1
+  WallsTilemap: {fileID: 0}
+  NotWalkableTilemap: {fileID: 0}

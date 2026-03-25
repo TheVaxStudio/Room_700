@@ -286,8 +286,10 @@ public class NpcAdvancedMovement : MonoBehaviour
         Anim.SetFloat("MoveY", CurrentMoveDir.y);
 
         Anim.SetFloat("LastMoveX", LastMoveDir.x);
-        
+
         Anim.SetFloat("LastMoveY", LastMoveDir.y);
+        
+        Anim.SetFloat("Speed", MoveSpeed);
 
         if (Sr != null && Mathf.Abs(CurrentMoveDir.x) > 0.01f)
         {
