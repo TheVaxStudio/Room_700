@@ -376,9 +376,9 @@ MonoBehaviour:
   WalkableTilemap: {fileID: 0}
   Sr: {fileID: 5697001204817741236}
   MoveSpeed: 2.5
-  StopDistance: 0.1
-  RepathInterval: 0.35
+  StopDistance: 5
+  RepathInterval: 0.3
   DetectionRange: 12
-  AllowDiagonalMovement: 1
+  AllowDiagonalMovement: 0
   WallsTilemap: {fileID: 0}
   NotWalkableTilemap: {fileID: 0}

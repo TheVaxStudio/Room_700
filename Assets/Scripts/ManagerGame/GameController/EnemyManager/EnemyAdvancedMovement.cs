@@ -22,7 +22,7 @@ public class EnemyAdvancedMovement : MonoBehaviour
     public float DetectionRange = 12.0f;
 
     [Header("Pathfinding")]
-    public bool AllowDiagonalMovement = true;
+    public bool AllowFourDirectionalMovement = true;
 
     Animator Anim;
 
@@ -145,7 +145,7 @@ public class EnemyAdvancedMovement : MonoBehaviour
             return;
         }
 
-        NodeConnectionType ConnectionType = AllowDiagonalMovement
+        NodeConnectionType ConnectionType = AllowFourDirectionalMovement
         ? NodeConnectionType.RectangleWithDiagonals
         : NodeConnectionType.RectangleNoDiagonals;
 
