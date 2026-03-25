@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1839735485 &485675083 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 2567107617977436598, guid: b29444687b8372844bf1bf353afc0f6b, type: 3}
+  m_PrefabInstance: {fileID: 1182091566}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534271052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9193627726137847411, guid: e6a413263ae9b204cb713b082a22a3fa, type: 3}
@@ -132,18 +137,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 411145310587838545, guid: e6a413263ae9b204cb713b082a22a3fa, type: 3}
-      propertyPath: m_Name
-      value: Room45Quest
-      objectReference: {fileID: 0}
-    - target: {fileID: 3551449025220361414, guid: e6a413263ae9b204cb713b082a22a3fa, type: 3}
-      propertyPath: m_Name
-      value: BgRoom45
-      objectReference: {fileID: 0}
-    - target: {fileID: 7890704647364522565, guid: e6a413263ae9b204cb713b082a22a3fa, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0be94143059db54479a9d87e6b6c44be, type: 3}
     - target: {fileID: 8809391038793776557, guid: e6a413263ae9b204cb713b082a22a3fa, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -290,6 +283,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf9158db17be5104cb5cf9486b343fdf, type: 3}
+--- !u!1839735485 &874845291 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+  m_PrefabInstance: {fileID: 1215554589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &895386832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -463,6 +461,74 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[3].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[4].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[12].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[13].m_Data
+      value: 
+      objectReference: {fileID: -1949204609, guid: d392eb2705801bf48afd8be1aa85a006, type: 3}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[15].m_Data
+      value: 
+      objectReference: {fileID: -1370395564, guid: d392eb2705801bf48afd8be1aa85a006, type: 3}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[16].m_Data
+      value: 
+      objectReference: {fileID: -1398179215, guid: d392eb2705801bf48afd8be1aa85a006, type: 3}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[18].m_Data
+      value: 
+      objectReference: {fileID: -1243658694, guid: d392eb2705801bf48afd8be1aa85a006, type: 3}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[3].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[4].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[12].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[15].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[16].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[18].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_Tiles.Array.data[2461].second.m_TileSpriteIndex
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_Tiles.Array.data[2462].second.m_TileSpriteIndex
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_Tiles.Array.data[2463].second.m_TileSpriteIndex
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256120900084432376, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
+      propertyPath: m_Tiles.Array.data[2478].second.m_TileSpriteIndex
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 7774161989008419788, guid: 2bed53622ff6b804fa5d15e66ace5b9e, type: 3}
       propertyPath: m_Name
       value: Walls
@@ -548,6 +614,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 505030879817273943, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1792155665}
+    - target: {fileID: 505030879817273943, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
+      propertyPath: StopDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 505030879817273943, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
+      propertyPath: WallsTilemap
+      value: 
+      objectReference: {fileID: 874845291}
+    - target: {fileID: 505030879817273943, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
+      propertyPath: WalkableTilemap
+      value: 
+      objectReference: {fileID: 485675083}
+    - target: {fileID: 505030879817273943, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
+      propertyPath: NotWalkableTilemap
+      value: 
+      objectReference: {fileID: 874845291}
     - target: {fileID: 3666367182770110310, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -588,10 +674,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7791443783224234013, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1792155665}
     - target: {fileID: 8725705467343262888, guid: b2f5ab151f1ee5d4089e968b84e8d3c2, type: 3}
       propertyPath: m_Name
       value: Arthur
@@ -763,6 +845,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2081555397}
     - target: {fileID: 2172703664433866130, guid: a202da9dae2e90a40af75eb54a876073, type: 3}
+      propertyPath: StartOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172703664433866130, guid: a202da9dae2e90a40af75eb54a876073, type: 3}
       propertyPath: CharacterImage
       value: 
       objectReference: {fileID: 1208441081}
@@ -770,6 +856,14 @@ PrefabInstance:
       propertyPath: BackgroundImage
       value: 
       objectReference: {fileID: 1985503073}
+    - target: {fileID: 2172703664433866130, guid: a202da9dae2e90a40af75eb54a876073, type: 3}
+      propertyPath: Story.Array.data[0].SpeakerName
+      value: Lyra
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172703664433866130, guid: a202da9dae2e90a40af75eb54a876073, type: 3}
+      propertyPath: Story.Array.data[0].CharacterSprite
+      value: 
+      objectReference: {fileID: -64294222, guid: ac0dccf840e55ca4f99ce3d96983e849, type: 3}
     - target: {fileID: 4330869480922842419, guid: a202da9dae2e90a40af75eb54a876073, type: 3}
       propertyPath: m_Name
       value: VnRoom45Manager
