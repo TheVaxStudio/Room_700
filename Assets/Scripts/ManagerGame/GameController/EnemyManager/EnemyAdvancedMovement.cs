@@ -42,9 +42,9 @@ public class NpcAdvancedMovement : MonoBehaviour
 
     bool HasPath;
 
-    public GameObject WallsTilemap;
+    public Tilemap WallsTilemap;
 
-    public GameObject NotWalkableTilemap;
+    public Tilemap NotWalkableTilemap;
 
     void Awake()
     {
