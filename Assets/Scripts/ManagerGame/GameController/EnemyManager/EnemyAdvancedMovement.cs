@@ -3,7 +3,7 @@ using KwaaktjePathfinder2D;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class NpcAdvancedMovement : MonoBehaviour
+public class EnemyAdvancedMovement : MonoBehaviour
 {
     [Header("Referencias")]
     public Transform Player;
