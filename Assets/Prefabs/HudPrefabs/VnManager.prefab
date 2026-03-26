@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8421431967322786362}
-  - component: {fileID: 2172703664433866130}
+  - component: {fileID: 6611643526863168265}
   m_Layer: 0
   m_Name: VnManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2172703664433866130
+--- !u!114 &6611643526863168265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,22 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4330869480922842419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25570345df41abc44805062f5b154941, type: 3}
+  m_Script: {fileID: 11500000, guid: cc5c9493c16b7ae42a503b0b0090f3cb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoseCutscene
-  Hud: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::VNManager
   DialogueText: {fileID: 0}
-  NameText: {fileID: 0}
-  CharacterImage: {fileID: 0}
+  SpeakerNameText: {fileID: 0}
   BackgroundImage: {fileID: 0}
-  Story:
-  - SpeakerName: Tommy
-    Dialogue: You have collected the first key
-    CharacterSprite: {fileID: 1202170153, guid: abb330dbb78556844939186972e993d2, type: 3}
-    BackgroundSprite: {fileID: 21300000, guid: 0be94143059db54479a9d87e6b6c44be, type: 3}
-  OnDialogueStart:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDialogueEnd:
-    m_PersistentCalls:
-      m_Calls: []
+  CharacterPortrait: {fileID: 0}
+  ChoiceButtons:
+  - {fileID: 0}
+  BgmSource: {fileID: 0}
+  SfxSource: {fileID: 0}
