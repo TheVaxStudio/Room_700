@@ -19,8 +19,10 @@ public class VNManager : MonoBehaviour
     public Button[] ChoiceButtons;
 
     public AudioSource BgmSource;
-    
+
     public AudioSource SfxSource;
+
+    public HudCutscene HudScene;
 
     // Data Structures
     Queue<string> DialogueQueue = new Queue<string>();
@@ -53,7 +55,7 @@ public class VNManager : MonoBehaviour
         }
     }
 
-     IEnumerator DisplayText(string Line)
+    IEnumerator DisplayText(string Line)
     {
         IsDisplayingText = true;
 
@@ -232,7 +234,7 @@ public class VNManager : MonoBehaviour
         }
     }
 
-     string SerializeVariables()
+    string SerializeVariables()
     {
         // Simple serialization - improve for complex types
         List<string> Serialized = new List<string>();
@@ -245,7 +247,7 @@ public class VNManager : MonoBehaviour
         return string.Join(";", Serialized);
     }
 
-     void DeserializeVariables(string Data)
+    void DeserializeVariables(string Data)
     {
         StoryVariables.Clear();
 
@@ -274,8 +276,8 @@ public class VNManager : MonoBehaviour
         StartCoroutine(Fade(Target, 1.0f, 0.0f, Duration));
     }
 
-     IEnumerator Fade(Image Target, float StartAlpha,
-     float EndAlpha, float Duration)
+    IEnumerator Fade(Image Target, float StartAlpha,
+    float EndAlpha, float Duration)
     {
         Color Color = Target.color;
 
@@ -339,7 +341,7 @@ public class VNManager : MonoBehaviour
         StartCoroutine(AutoAdvance(Delay));
     }
 
-     IEnumerator AutoAdvance(float Delay)
+    IEnumerator AutoAdvance(float Delay)
     {
         while (true)
         {
@@ -362,6 +364,8 @@ public class VNManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !IsDisplayingText)
         {
+            HudScene.enabled = true;
+            
             ShowNextLine();
         }
     }
