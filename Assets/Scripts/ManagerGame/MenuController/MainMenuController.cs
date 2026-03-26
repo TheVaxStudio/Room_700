@@ -5,35 +5,6 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-[System.Serializable]
-public class LanguageData
-{
-    public string Code;
-
-    public string Start;
-
-    public string Quit;
-
-    public string Language;
-
-    public string Info;
-
-    public string Settings;
-
-    public string Back;
-
-    public string Volume;
-    
-    public string Quality;
-}
-
-[System.Serializable]
-public class LanguageRoot
-{
-    public List<LanguageData> Languages;
-}
-
-
 public class MainMenuController : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI")]
@@ -45,19 +16,21 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
 
     public GameObject SettingsPanel;
 
+    readonly KeyCode R = KeyCode.R;
+
     [Header("Scene Name")]
     public string SceneToLoad = "Outside";
 
     void Start()
     {
-        if (StartButton != null)
-        {
-            StartButton.onClick.AddListener(LoadScene);
-        }
-
         if (InfoText != null)
         {
             InfoText.text = "Pressione R para começar";
+
+            if (Input.GetKeyDown(R))
+            {
+                LoadScene();
+            }
         }
 
         if (SettingsPanelText != null &&
@@ -94,4 +67,32 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
     {
         SceneManager.LoadScene(SceneToLoad);
     }
+}
+
+[System.Serializable]
+public class LanguageData
+{
+    public string Code;
+
+    public string Start;
+
+    public string Quit;
+
+    public string Language;
+
+    public string Info;
+
+    public string Settings;
+
+    public string Back;
+
+    public string Volume;
+    
+    public string Quality;
+}
+
+[System.Serializable]
+public class LanguageRoot
+{
+    public List<LanguageData> Languages;
 }

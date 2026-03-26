@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4894009833689633687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3065997156558291365}
+  - component: {fileID: 8994561856417805372}
+  m_Layer: 0
+  m_Name: HudCutscene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3065997156558291365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4894009833689633687}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8994561856417805372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4894009833689633687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25570345df41abc44805062f5b154941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HudCutscene
+  Hud: {fileID: 0}
+  StartOnAwake: 1
+  DialogueText: {fileID: 0}
+  NameText: {fileID: 0}
+  CharacterImage: {fileID: 0}
+  BackgroundImage: {fileID: 0}
+  Story:
+  - SpeakerName: Lyra
+    Dialogue: Explore all the lobby inside
+    CharacterSprite: {fileID: -64294222, guid: ac0dccf840e55ca4f99ce3d96983e849, type: 3}
+    BackgroundSprite: {fileID: 21300000, guid: 446c5b63de03c4341887e1e2262a4989, type: 3}
+  OnDialogueStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDialogueEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  KeyPickupSource: {fileID: 0}
