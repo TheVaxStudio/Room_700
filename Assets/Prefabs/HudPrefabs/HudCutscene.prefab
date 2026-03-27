@@ -51,9 +51,9 @@ MonoBehaviour:
   CharacterImage: {fileID: 0}
   BackgroundImage: {fileID: 0}
   Story:
-  - SpeakerName: Lyra
+  - SpeakerName: Tommy
     Dialogue: Explore all the lobby inside
-    CharacterSprite: {fileID: -64294222, guid: ac0dccf840e55ca4f99ce3d96983e849, type: 3}
+    CharacterSprite: {fileID: 1202170153, guid: abb330dbb78556844939186972e993d2, type: 3}
     BackgroundSprite: {fileID: 21300000, guid: 446c5b63de03c4341887e1e2262a4989, type: 3}
   OnDialogueStart:
     m_PersistentCalls:
