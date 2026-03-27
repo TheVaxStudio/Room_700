@@ -226,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4894009833689633687, guid: 295713e151160b6428f2ad2a59c0d82f, type: 3}
       propertyPath: m_Name
-      value: HudCutscene
+      value: HudCutsceneOutside
       objectReference: {fileID: 0}
     - target: {fileID: 8994561856417805372, guid: 295713e151160b6428f2ad2a59c0d82f, type: 3}
       propertyPath: Hud
