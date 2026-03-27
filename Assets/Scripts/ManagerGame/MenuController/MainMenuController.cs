@@ -23,7 +23,7 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
-        if (InfoText != null)
+        if (InfoText != null && InfoText.tag == "Info")
         {
             InfoText.text = "Pressione R para começar";
 
