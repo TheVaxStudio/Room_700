@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7da7f1c90e11447adb216f4fe4d01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorPrefab: {fileID: 2350098882405641365, guid: 358842a9bb98b0e499b7699178557908, type: 3}
-  wallPrefab: {fileID: 4815251270761980214, guid: 1ece671a1199cb944bb72d53d13aa321, type: 3}
-  playerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
+  FloorTilemap: {fileID: 0}
+  WallTilemap: {fileID: 0}
+  FloorTile: {fileID: 11400000, guid: 85dc6548acc936741bf7e8f9395efaa7, type: 2}
+  WallTile: {fileID: 11400000, guid: c5157c6cd19911b42be83433618e5a3f, type: 2}
+  PlayerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
+  NpcPrefab: {fileID: 5260005783469611988, guid: 0afceb806229e7943bc1c86261395dff, type: 3}
   DoorPrefab: {fileID: 6995773550775222975, guid: 9c231d12afce5854198a3ec41c590bf6, type: 3}
-  gridSize: 512
-  roomSize: 32
-  corridorWidth: 4
-  wallThickness: 1
-  maxTilesPerFrame: 4096
+  ItemPrefabs:
+  - {fileID: 5024492031455265544, guid: dad16f1080b53f2429bd1bec79d7fc81, type: 3}
