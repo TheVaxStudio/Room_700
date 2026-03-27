@@ -60,6 +60,23 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
         if (SettingsPanel != null)
         {
             SettingsPanel.SetActive(!SettingsPanel.activeSelf);
+
+            HideLanguageOptions();
+        }
+    }
+
+    void HideLanguageOptions()
+    {
+        if (SettingsPanel == null)
+        {
+            return;
+        }
+
+        Transform languageMenuTransform = SettingsPanel.transform.Find("LanguageMenu");
+
+        if (languageMenuTransform != null)
+        {
+            languageMenuTransform.gameObject.SetActive(false);
         }
     }
 
