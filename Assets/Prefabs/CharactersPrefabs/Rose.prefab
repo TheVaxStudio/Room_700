@@ -97,8 +97,8 @@ GameObject:
   - component: {fileID: 1731916903598291610}
   - component: {fileID: 9114852990607946308}
   - component: {fileID: 5568445991683819448}
-  - component: {fileID: 1428955557562136104}
   - component: {fileID: 2725555445264755082}
+  - component: {fileID: 1615268475117162275}
   m_Layer: 0
   m_Name: Rose
   m_TagString: Rose
@@ -276,28 +276,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1428955557562136104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3980792011691525691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28355ae5dead83d42b2ce90c1efff99d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCFollowPlayerImproved
-  Player: {fileID: 0}
-  Sr: {fileID: 1459212905181499658}
-  WallLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  Speed: 0.2
-  DetectionRange: 20
-  StartFollowDelay: 10.5
-  StopFollowDelay: 15.5
-  DistanceFromWalls: 0.7
 --- !u!82 &2725555445264755082
 AudioSource:
   m_ObjectHideFlags: 0
@@ -395,3 +373,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1615268475117162275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3980792011691525691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ed209f87f1942459e9c3bc210dd1dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCFollowPlayer
+  Player: {fileID: 0}
+  Sr: {fileID: 1459212905181499658}
