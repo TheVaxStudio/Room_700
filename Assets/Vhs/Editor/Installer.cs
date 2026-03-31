@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.ProjectWindowCallback;
+using UnityEditor.ShortcutManagement;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -45,7 +46,6 @@ namespace VolFx.Editor
         public static Type _urpFeatureType = typeof(VhsFx);
 
         [InitializeOnLoadMethod]
-        [Obsolete]
         public static void PackageTracker()
         {
             AssetDatabase.importPackageCompleted += n =>
@@ -53,8 +53,7 @@ namespace VolFx.Editor
                 EditorApplication.delayCall += Supress;
             };
         }
-
-        [Obsolete]
+        
         public static void Supress()
         {
             if (Application.isPlaying)
@@ -93,50 +92,42 @@ namespace VolFx.Editor
             {
                 // setup Urp
                 case 0:
+                {
+                    UrpBuilder.CreateUrp((asset) =>
                     {
-                        UrpBuilder.CreateUrp((asset) =>
-                        {
-                            GraphicsSettings.defaultRenderPipeline = asset;
-                            
-                            QualitySettings.renderPipeline = null;
+                        GraphicsSettings.defaultRenderPipeline = asset;
+                        QualitySettings.renderPipeline       = null;
 #pragma warning disable CS4014
-                            _delayedCheck();
+                        _delayedCheck();
 #pragma warning restore CS4014
+                        
+                        Debug.Log("Urp asset was created", asset);
+                        
+                        async Task _delayedCheck()
+                        {
+                            // delayed check for an render feature
+                            await Task.Yield();
+                            
+                            AssetDatabase.SaveAssets();
 
-                            Debug.Log("Urp asset was created", asset);
-
-                            async Task _delayedCheck()
-                            {
-                                // delayed check for an render feature
-                                await Task.Yield();
-
-                                AssetDatabase.SaveAssets();
-
-                                await Task.Yield();
-                                
-                                await Task.Yield();
-
-                                FeatureCheck();
-                            }
-                        });
-                    } 
-                
-                break;
+                            await Task.Yield();
+                            await Task.Yield();
+                            
+                            FeatureCheck();
+                        }
+                    });
+                } break;
                 // delayed
                 case 1:
-                    {
-                        // pass, do nothing
-                    } 
-                
-                break;
+                {
+                    // pass, do nothing
+                } break;
                 // no
                 case 2:
-                    {
-                        // never again
-                        FileLatch.Lock("UrpHelpOff");
-                    } 
-                
-                break;
+                {
+                    // never again
+                    FileLatch.Lock("UrpHelpOff");
+                } break;
             }
         }
         
@@ -151,90 +142,74 @@ namespace VolFx.Editor
 
             if (UrpBuilder.HasFeature(_urpFeatureType))
                 return;
-
+            
 
             var answer = EditorUtility.DisplayDialogComplex($"• {_urpFeatureType.Name} by NullTale ☄",
-            $"Active Urp Renderer does not contain {_urpFeatureType.Name} render feature. It required to perform effect logic. \n \n" +
-            $"• Do you want to add {_urpFeatureType.Name} to current UrpRenderer?",
-            "Yes", "Not now", "Do not show again");
-            
+                                                            $"Active Urp Renderer does not contain {_urpFeatureType.Name} render feature. It required to perform effect logic. \n \n" +
+                                                            $"• Do you want to add {_urpFeatureType.Name} to current UrpRenderer?",
+                                                            "Yes", "Not now", "Do not show again");
             switch (answer)
             {
                 // add feature
                 case 0:
+                {
+                    try
                     {
-                        try
-                        {
 #pragma warning disable CS4014
-                            _delayedCheck();
+                        _delayedCheck();
 #pragma warning restore CS4014
-
-                            async Task _delayedCheck()
-                            {
-                                // delayed check for an render feature
-                                await Task.Yield();
-
-                                AssetDatabase.SaveAssets();
-
-                                await Task.Yield();
-
-                                await Task.Yield();
-
-                                UrpBuilder.CreateFeature(_urpFeatureType, n =>
-                                {
-                                    var pipline = UrpBuilder.GetDefaultPipline();
-
-                                    var data = UrpBuilder._getDefaultRenderer(pipline as
-                                    UniversalRenderPipelineAsset);
-                                    
-                                    Selection.activeObject = data;
-
-                                    EditorGUIUtility.PingObject(data);
-
-                                    n.hideFlags = HideFlags.HideInInspector | HideFlags.HideInHierarchy;
-                                    //EditorUtility.DisplayDialog($"• {_urpFeatureType.Name} by NullTale", $"{_urpFeatureType.Name} was added to the Urp asset.\nYou can control it via Volume profile like common post processing effect.", "Ok");
-                                    Debug.Log($"<color=white>• {_urpFeatureType.Name} was added to the Urp asset. \nNow, you can control it via Volume profile like common post processing effect.</color>", n);
-                                });
-
-                                await Task.Yield();
-
-                                await Task.Yield();
-                                
-                                AssetDatabase.SaveAssets();
-                            }
-                        }
-
-                        catch (Exception e)
+                        
+                        async Task _delayedCheck()
                         {
-                            EditorUtility.DisplayDialog($"• {_urpFeatureType.Name} by NullTale", $"Oops, something goes wrong :\n" +
-                            $"It can be related to the Unity Api changes or specific project environment, please configure Urp manually", "Ok");
+                            // delayed check for an render feature
+                            await Task.Yield();
+                            
+                            AssetDatabase.SaveAssets();
 
-                            Debug.LogError(e.Message);
-
-                            throw;
+                            await Task.Yield();
+                            await Task.Yield();
+                            
+                            UrpBuilder.CreateFeature(_urpFeatureType, n =>
+                            {
+                                var pipline = UrpBuilder.GetDefaultPipline();
+                                var data    = UrpBuilder._getDefaultRenderer(pipline as UniversalRenderPipelineAsset);
+                                Selection.activeObject = data;
+                                EditorGUIUtility.PingObject(data);
+                                
+                                n.hideFlags = HideFlags.HideInInspector | HideFlags.HideInHierarchy;
+                                //EditorUtility.DisplayDialog($"• {_urpFeatureType.Name} by NullTale", $"{_urpFeatureType.Name} was added to the Urp asset.\nYou can control it via Volume profile like common post processing effect.", "Ok");
+                                Debug.Log($"<color=white>• {_urpFeatureType.Name} was added to the Urp asset. \nNow, you can control it via Volume profile like common post processing effect.</color>", n);
+                            });
+                            
+                            await Task.Yield();
+                            await Task.Yield();
+                            AssetDatabase.SaveAssets();
                         }
-                    } 
-                
-                break;
+                    }
+                    catch (Exception e)
+                    {
+                        EditorUtility.DisplayDialog($"• {_urpFeatureType.Name} by NullTale", $"Oops, something goes wrong :\n" +
+                                                                                             $"It can be related to the Unity Api changes or specific project environment, please configure Urp manually", "Ok");
+                        
+                        Debug.LogError(e.Message);
+                        throw;
+                    }
+                } break;
                 // skip for now
                 case 1:
-                    {
-                        // pass, do nothing
-                    } 
-                
-                break;
+                {
+                    // pass, do nothing
+                } break;
                 // never again
                 case 2:
-                    {
-                        FileLatch.Lock("FeatHelpOff");
-                    } 
-                
-                break;
+                {
+                    FileLatch.Lock("FeatHelpOff");
+                } break;
             }
         }
 #endif
         
-        static bool HasVolFx()
+        private static bool HasVolFx()
         {
             var sep = Path.DirectorySeparatorChar;
             var asm = AssetDatabase.LoadAssetAtPath<UnityEditorInternal.AssemblyDefinitionAsset>($"Assets{sep}VolFx{sep}VolFx{sep}Runtime{sep}VolFx.asmdef");
@@ -260,9 +235,8 @@ namespace VolFx.Editor
                          .Select(n => AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(n))
                          .Any(n => n.text == "VolFx");
         }
-
-        [Obsolete]
-        static void RemoveDefines(params string[] defines)
+        
+        private static void RemoveDefines(params string[] defines)
         {
             var definesList = GetDefines().ToList();
             foreach (var def in defines)
@@ -275,7 +249,6 @@ namespace VolFx.Editor
             }
         }
 
-        [Obsolete]
         private static List<string> GetDefines()
         {
             var target           = EditorUserBuildSettings.activeBuildTarget;
@@ -284,7 +257,6 @@ namespace VolFx.Editor
             return defines.Split(';').ToList();
         }
 
-        [Obsolete]
         private static void AddDefine(string define)
         {
             var defs = GetDefines();
@@ -295,8 +267,7 @@ namespace VolFx.Editor
             SetDefines(defs);
         }
 
-        [Obsolete]
-        static void SetDefines(List<string> definesList)
+        private static void SetDefines(List<string> definesList)
         {
             var target           = EditorUserBuildSettings.activeBuildTarget;
             var buildTargetGroup = BuildPipeline.GetBuildTargetGroup(target);
@@ -372,7 +343,7 @@ namespace VolFx.Editor
             return data.rendererFeatures.Any(type.IsInstanceOfType);
         }
         
-        static ScriptableRendererData GetDefaultRenderer(UniversalRenderPipelineAsset asset)
+        private static ScriptableRendererData GetDefaultRenderer(UniversalRenderPipelineAsset asset)
         {
             if (asset)
             {
@@ -395,7 +366,7 @@ namespace VolFx.Editor
         }
         
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812")]
-        class CreateUniversalPipelineAsset : EndNameEditAction
+        private class CreateUniversalPipelineAsset : EndNameEditAction
         {
             public Action<UniversalRenderPipelineAsset> _onComplete;
             
@@ -433,7 +404,7 @@ namespace VolFx.Editor
 #endif
         }
         
-        static UniversalRenderPipelineAsset Create(ScriptableRendererData data = null)
+        private static UniversalRenderPipelineAsset Create(ScriptableRendererData data = null)
         {
             // Create Universal RP Asset
             var urpAsset = ScriptableObject.CreateInstance<UniversalRenderPipelineAsset>();
@@ -458,7 +429,7 @@ namespace VolFx.Editor
             return urpAsset;
         }
         
-        static ScriptableRendererData CreateRendererAsset(string path, RendererType type, bool relativePath = true, string suffix = "Renderer")
+        private static ScriptableRendererData CreateRendererAsset(string path, RendererType type, bool relativePath = true, string suffix = "Renderer")
         {
             var data     = CreateRendererData(type);
             var dataPath = relativePath ? $"{Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path))}_{suffix}{Path.GetExtension(path)}" : path;
@@ -469,7 +440,7 @@ namespace VolFx.Editor
             return data;
         }
         
-        static ScriptableRendererData CreateRendererData(RendererType type)
+        private static ScriptableRendererData CreateRendererData(RendererType type)
         {
             
 #if !UNITY_2021_1_OR_NEWER
@@ -497,7 +468,7 @@ namespace VolFx.Editor
 #endif
         }
         
-        static void AddRenderFeature(ScriptableRendererFeature feature)
+        private static void AddRenderFeature(ScriptableRendererFeature feature)
         {
             var pipline = GetDefaultPipline();
             var data    = _getDefaultRenderer(pipline as UniversalRenderPipelineAsset);
@@ -555,7 +526,7 @@ namespace VolFx.Editor
             }
         }
         
-        static PostProcessData GetDefaultPostProcessData()
+        private static PostProcessData GetDefaultPostProcessData()
         {
             var path = Path.Combine(UniversalRenderPipelineAsset.packagePath, "Runtime/Data/PostProcessData.asset");
             return AssetDatabase.LoadAssetAtPath<PostProcessData>(path);

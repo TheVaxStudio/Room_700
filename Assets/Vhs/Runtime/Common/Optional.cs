@@ -18,14 +18,12 @@ namespace VolFx
         public bool Enabled
         {
             get => enabled;
-
             set => enabled = value;
         }
 
         public T Value
         {
             get => value;
-
             set => this.value = value;
         }
 
@@ -38,7 +36,6 @@ namespace VolFx
         public Optional(T value, bool enabled)
         {
             this.enabled = enabled;
-            
             this.value   = value;
         }
 

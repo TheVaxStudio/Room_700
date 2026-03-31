@@ -5,3 +5,10 @@ DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270015
+  packageName: Vhs
+  packageVersion: 1.9.3
+  assetPath: Assets/Vhs/Samples/Vhs.unity
+  uploadId: 818004

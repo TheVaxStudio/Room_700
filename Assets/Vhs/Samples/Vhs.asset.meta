@@ -6,3 +6,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270015
+  packageName: Vhs
+  packageVersion: 1.9.3
+  assetPath: Assets/Vhs/Samples/Vhs.asset
+  uploadId: 818004
