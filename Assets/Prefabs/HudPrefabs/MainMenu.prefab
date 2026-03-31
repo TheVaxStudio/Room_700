@@ -4609,6 +4609,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6435755856366566225, guid: 1689990e7ac424944b9b9e0ba63c98ae, type: 3}
+      propertyPath: data
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435755856366566225, guid: 1689990e7ac424944b9b9e0ba63c98ae, type: 3}
+      propertyPath: entries.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435755856366566225, guid: 1689990e7ac424944b9b9e0ba63c98ae, type: 3}
+      propertyPath: entries.Array.data[0].Text
+      value: 'Walk until a second hotel and
+
+        investigate one mysterious assassination'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435755856366566225, guid: 1689990e7ac424944b9b9e0ba63c98ae, type: 3}
+      propertyPath: entries.Array.data[0].Language
+      value: English
+      objectReference: {fileID: 0}
     - target: {fileID: 9061764758791643377, guid: 1689990e7ac424944b9b9e0ba63c98ae, type: 3}
       propertyPath: m_Name
       value: LanguageMenu
