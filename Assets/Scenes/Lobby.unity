@@ -127,7 +127,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1428955557562136104, guid: 305d1a1ea7bed3e46acc9f019dd35052, type: 3}
+    - target: {fileID: 1615268475117162275, guid: 305d1a1ea7bed3e46acc9f019dd35052, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 560478784}
@@ -944,17 +944,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5260005783469611988, guid: 0afceb806229e7943bc1c86261395dff, type: 3}
-      propertyPath: m_Name
-      value: Lyra
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543382037855154819, guid: 0afceb806229e7943bc1c86261395dff, type: 3}
+    - target: {fileID: 929290630971673418, guid: 0afceb806229e7943bc1c86261395dff, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 560478784}
-    - target: {fileID: 5543382037855154819, guid: 0afceb806229e7943bc1c86261395dff, type: 3}
-      propertyPath: WallLayer.m_Bits
-      value: 256
+    - target: {fileID: 5260005783469611988, guid: 0afceb806229e7943bc1c86261395dff, type: 3}
+      propertyPath: m_Name
+      value: Lyra
       objectReference: {fileID: 0}
     - target: {fileID: 8433192337339172944, guid: 0afceb806229e7943bc1c86261395dff, type: 3}
       propertyPath: m_LocalPosition.x
