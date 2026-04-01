@@ -125,3 +125,38 @@ The following packages were added:
   com.unity.testtools.codecoverage@1.3.0
   com.unity.modules.subsystems@1.0.0
   com.unity.modules.uielementsnative@1.0.0
+
+=== Wed Apr  1 09:37:47 2026
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.2d.animation from version 5.0.5 to 13.0.4
+  com.unity.2d.pixel-perfect from version 4.0.1 to 5.1.1
+  com.unity.2d.psdimporter from version 4.0.2 to 12.0.1
+  com.unity.2d.spriteshape from version 5.1.2 to 13.0.0
+  com.unity.2d.tilemap.extras from version 1.8.1-preview to 6.0.1
+  com.unity.collab-proxy from version 1.5.7 to 2.11.3
+  com.unity.ide.rider from version 2.0.7 to 3.0.39
+  com.unity.ide.visualstudio from version 2.0.9 to 2.0.26
+  com.unity.test-framework from version 1.1.26 to 1.6.0
+  com.unity.timeline from version 1.4.8 to 1.8.10
+  com.unity.ugui from version 1.0.0 to 2.0.0
+The following packages were removed:
+  com.unity.textmeshpro@3.0.6
+
+=== Wed Apr  1 09:37:47 2026
+
+Packages were changed.
+Update Mode: mergeDefaultDependencies
+
+The following packages were added:
+  com.unity.2d.animation@13.0.4
+  com.unity.2d.pixel-perfect@5.1.1
+  com.unity.2d.psdimporter@12.0.1
+  com.unity.2d.spriteshape@13.0.0
+  com.unity.2d.tilemap@1.0.0
+  com.unity.2d.tilemap.extras@6.0.1
+  com.unity.collab-proxy@2.11.3
+  com.unity.ide.vscode@1.2.5
