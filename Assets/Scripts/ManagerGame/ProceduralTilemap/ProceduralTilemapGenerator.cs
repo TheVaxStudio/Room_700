@@ -255,6 +255,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             for (int dx = 0; dx < 2; dx++)
             {
                 int xPos = X + dx;
+                
                 if (xPos < Width)
                 {
                     Map[xPos, y] = 0;
