@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityRandom = UnityEngine.Random;
 
+// Version 3.0: Added automatic TilemapCollider2D and CompositeCollider2D setup for wall collisions
 public class ProceduralTilemapGenerator : MonoBehaviour
 {
     [Header("Tilemap Settings")]
@@ -29,6 +30,33 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     public int Seed = 0;
 
     Random Rdn;
+
+    void Awake()
+    {
+        // Ensure Tilemap has TilemapCollider2D
+        if (MapTile.GetComponent<TilemapCollider2D>() == null)
+        {
+            MapTile.gameObject.AddComponent<TilemapCollider2D>();
+        }
+
+        // Ensure Tilemap has CompositeCollider2D
+        if (MapTile.GetComponent<CompositeCollider2D>() == null)
+        {
+            CompositeCollider2D Composite = MapTile.gameObject.AddComponent<CompositeCollider2D>();
+
+            Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            
+            Composite.generationType = CompositeCollider2D.GenerationType.Manual;
+        }
+
+        // Set TilemapCollider2D to use Composite
+        TilemapCollider2D MapTileCollider = MapTile.GetComponent<TilemapCollider2D>();
+
+        if (MapTileCollider != null)
+        {
+            MapTileCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+        }
+    }
 
     void Start()
     {
