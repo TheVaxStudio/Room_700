@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityRandom = UnityEngine.Random;
 
-// Version 3.0: Added automatic TilemapCollider2D and CompositeCollider2D setup for wall collisions
 public class ProceduralTilemapGenerator : MonoBehaviour
 {
     [Header("Tilemap Settings")]
     public Tilemap MapTile;
+
+    public Tilemap WallTilemap;
 
     public TileBase FloorTile;
 
@@ -33,28 +34,21 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     void Awake()
     {
-        // Ensure Tilemap has TilemapCollider2D
-        if (MapTile.GetComponent<TilemapCollider2D>() == null)
+        // Add colliders to WallTilemap
+        if (WallTilemap != null)
         {
-            MapTile.gameObject.AddComponent<TilemapCollider2D>();
-        }
+            if (WallTilemap.GetComponent<TilemapCollider2D>() == null)
+            {
+                WallTilemap.gameObject.AddComponent<TilemapCollider2D>();
+            }
 
-        // Ensure Tilemap has CompositeCollider2D
-        if (MapTile.GetComponent<CompositeCollider2D>() == null)
-        {
-            CompositeCollider2D Composite = MapTile.gameObject.AddComponent<CompositeCollider2D>();
-
-            Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
-            
-            Composite.generationType = CompositeCollider2D.GenerationType.Manual;
-        }
-
-        // Set TilemapCollider2D to use Composite
-        TilemapCollider2D MapTileCollider = MapTile.GetComponent<TilemapCollider2D>();
-
-        if (MapTileCollider != null)
-        {
-            MapTileCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+            if (WallTilemap.GetComponent<CompositeCollider2D>() == null)
+            {
+                CompositeCollider2D Composite =
+                WallTilemap.gameObject.AddComponent<CompositeCollider2D>();
+                
+                Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            }
         }
     }
 
@@ -72,8 +66,13 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     void GenerateDungeon()
     {
-        // Clear the tilemap
+        // Clear the tilemaps
         MapTile.ClearAllTiles();
+
+        if (WallTilemap != null)
+        {
+            WallTilemap.ClearAllTiles();
+        }
 
         // Create a 2D array to represent the map
         int[,] Map = new int[Width, Height];
@@ -155,7 +154,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             }
         }
 
-        // Place tiles on the tilemap
+        // Place tiles on the tilemaps
         for (int x = 0; x < Width; x++)
         {
             for (int y = 0; y < Height; y++)
@@ -169,7 +168,15 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
                 else
                 {
-                    MapTile.SetTile(Position, WallTile);
+                    if (WallTilemap != null)
+                    {
+                        WallTilemap.SetTile(Position, WallTile);
+                    }
+
+                    else
+                    {
+                        MapTile.SetTile(Position, WallTile);
+                    }
                 }
             }
         }
