@@ -226,7 +226,15 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
         for (int x = Start; x <= End; x++)
         {
-            Map[x, Y] = 0;
+            for (int dy = 0; dy < 2; dy++)
+            {
+                int yPos = Y + dy;
+                
+                if (yPos < Height)
+                {
+                    Map[x, yPos] = 0;
+                }
+            }
         }
     }
 
@@ -238,7 +246,14 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
         for (int y = Start; y <= End; y++)
         {
-            Map[X, y] = 0;
+            for (int dx = 0; dx < 2; dx++)
+            {
+                int xPos = X + dx;
+                if (xPos < Width)
+                {
+                    Map[xPos, y] = 0;
+                }
+            }
         }
     }
 }
