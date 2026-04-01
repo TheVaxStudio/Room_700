@@ -47,6 +47,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Room70.unity
     guid: 8da8503756813884da092af6b8ffb2f7
+  - enabled: 1
+    path: Assets/Scenes/Room80.unity
+    guid: f6335829cc5868043854321634aba2b4
+  - enabled: 1
+    path: Assets/Scenes/Room100.unity
+    guid: 335324e2b133a524da03d69f09ca1f4d
+  - enabled: 1
+    path: Assets/Scenes/Room150.unity
+    guid: 8e4ae6c0509b1874c942d03d73a8086a
   m_configObjects:
     com.SoftKitty.Localization.settings: {fileID: 11400000, guid: b2ab12f5c5824404b9515eaae36675e1, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 6f8cf2d89b65ce54d8abf34265c6a167, type: 3}
