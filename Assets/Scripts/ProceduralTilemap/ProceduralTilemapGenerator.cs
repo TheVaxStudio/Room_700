@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -6,139 +5,139 @@ using UnityEngine.Tilemaps;
 public class ProceduralTilemapGenerator : MonoBehaviour
 {
     [Header("Tilemap Settings")]
-    public Tilemap tilemap;
-    public TileBase floorTile;
-    public TileBase wallTile;
+    public Tilemap Tilemap;
+    public TileBase FloorTile;
+    public TileBase WallTile;
 
     [Header("Generation Settings")]
-    public int width = 50;
-    public int height = 50;
-    public int minRoomSize = 3;
-    public int maxRoomSize = 10;
-    public int maxRooms = 10;
-    public bool useRandomSeed = true;
-    public int seed = 0;
+    public int Width = 50;
+    public int Height = 50;
+    public int MinRoomSize = 3;
+    public int MaxRoomSize = 10;
+    public int MaxRooms = 10;
+    public bool UseRandomSeed = true;
+    public int Seed = 0;
 
-    private System.Random random;
+    private System.Random Random;
 
     void Start()
     {
-        if (useRandomSeed)
+        if (UseRandomSeed)
         {
-            seed = Random.Range(0, int.MaxValue);
+            Seed = UnityEngine.Random.Range(0, int.MaxValue);
         }
-        random = new System.Random(seed);
+        Random = new System.Random(Seed);
         GenerateDungeon();
     }
 
     void GenerateDungeon()
     {
         // Clear the tilemap
-        tilemap.ClearAllTiles();
+        Tilemap.ClearAllTiles();
 
         // Create a 2D array to represent the map
-        int[,] map = new int[width, height];
+        int[,] Map = new int[Width, Height];
 
         // Initialize with walls
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < Width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                map[x, y] = 1; // 1 = wall
+                Map[x, y] = 1; // 1 = wall
             }
         }
 
         // Generate rooms
-        List<RectInt> rooms = new List<RectInt>();
-        for (int i = 0; i < maxRooms; i++)
+        List<RectInt> Rooms = new List<RectInt>();
+        for (int i = 0; i < MaxRooms; i++)
         {
-            int roomWidth = random.Next(minRoomSize, maxRoomSize + 1);
-            int roomHeight = random.Next(minRoomSize, maxRoomSize + 1);
-            int roomX = random.Next(1, width - roomWidth - 1);
-            int roomY = random.Next(1, height - roomHeight - 1);
+            int roomWidth = Random.Next(MinRoomSize, MaxRoomSize + 1);
+            int roomHeight = Random.Next(MinRoomSize, MaxRoomSize + 1);
+            int roomX = Random.Next(1, Width - roomWidth - 1);
+            int roomY = Random.Next(1, Height - roomHeight - 1);
 
-            RectInt newRoom = new RectInt(roomX, roomY, roomWidth, roomHeight);
+            RectInt NewRoom = new RectInt(roomX, roomY, roomWidth, roomHeight);
 
-            bool overlaps = false;
-            foreach (RectInt room in rooms)
+            bool Overlaps = false;
+            foreach (RectInt room in Rooms)
             {
-                if (newRoom.Overlaps(room))
+                if (NewRoom.Overlaps(room))
                 {
-                    overlaps = true;
+                    Overlaps = true;
                     break;
                 }
             }
 
-            if (!overlaps)
+            if (!Overlaps)
             {
-                rooms.Add(newRoom);
+                Rooms.Add(NewRoom);
 
                 // Carve out the room
                 for (int x = roomX; x < roomX + roomWidth; x++)
                 {
                     for (int y = roomY; y < roomY + roomHeight; y++)
                     {
-                        map[x, y] = 0; // 0 = floor
+                        Map[x, y] = 0; // 0 = floor
                     }
                 }
             }
         }
 
         // Connect rooms with corridors
-        for (int i = 1; i < rooms.Count; i++)
+        for (int i = 1; i < Rooms.Count; i++)
         {
-            Vector2Int prevCenter = new Vector2Int(rooms[i - 1].x + rooms[i - 1].width / 2, rooms[i - 1].y + rooms[i - 1].height / 2);
-            Vector2Int currCenter = new Vector2Int(rooms[i].x + rooms[i].width / 2, rooms[i].y + rooms[i].height / 2);
+            Vector2Int PrevCenter = new Vector2Int(Rooms[i - 1].x + Rooms[i - 1].width / 2, Rooms[i - 1].y + Rooms[i - 1].height / 2);
+            Vector2Int CurrCenter = new Vector2Int(Rooms[i].x + Rooms[i].width / 2, Rooms[i].y + Rooms[i].height / 2);
 
-            if (random.Next(0, 2) == 0)
+            if (Random.Next(0, 2) == 0)
             {
                 // Horizontal then vertical
-                CreateHorizontalCorridor(map, prevCenter.x, currCenter.x, prevCenter.y);
-                CreateVerticalCorridor(map, prevCenter.y, currCenter.y, currCenter.x);
+                CreateHorizontalCorridor(Map, PrevCenter.x, CurrCenter.x, PrevCenter.y);
+                CreateVerticalCorridor(Map, PrevCenter.y, CurrCenter.y, CurrCenter.x);
             }
             else
             {
                 // Vertical then horizontal
-                CreateVerticalCorridor(map, prevCenter.y, currCenter.y, prevCenter.x);
-                CreateHorizontalCorridor(map, prevCenter.x, currCenter.x, currCenter.y);
+                CreateVerticalCorridor(Map, PrevCenter.y, CurrCenter.y, PrevCenter.x);
+                CreateHorizontalCorridor(Map, PrevCenter.x, CurrCenter.x, CurrCenter.y);
             }
         }
 
         // Place tiles on the tilemap
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < Width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                Vector3Int position = new Vector3Int(x, y, 0);
-                if (map[x, y] == 0)
+                Vector3Int Position = new Vector3Int(x, y, 0);
+                if (Map[x, y] == 0)
                 {
-                    tilemap.SetTile(position, floorTile);
+                    Tilemap.SetTile(Position, FloorTile);
                 }
                 else
                 {
-                    tilemap.SetTile(position, wallTile);
+                    Tilemap.SetTile(Position, WallTile);
                 }
             }
         }
     }
 
-    void CreateHorizontalCorridor(int[,] map, int xStart, int xEnd, int y)
+    void CreateHorizontalCorridor(int[,] Map, int XStart, int XEnd, int Y)
     {
-        int start = Mathf.Min(xStart, xEnd);
-        int end = Mathf.Max(xStart, xEnd);
-        for (int x = start; x <= end; x++)
+        int Start = Mathf.Min(XStart, XEnd);
+        int End = Mathf.Max(XStart, XEnd);
+        for (int x = Start; x <= End; x++)
         {
-            map[x, y] = 0;
+            Map[x, Y] = 0;
         }
     }
 
-    void CreateVerticalCorridor(int[,] map, int yStart, int yEnd, int x)
+    void CreateVerticalCorridor(int[,] Map, int YStart, int YEnd, int X)
     {
-        int start = Mathf.Min(yStart, yEnd);
-        int end = Mathf.Max(yStart, yEnd);
-        for (int y = start; y <= end; y++)
+        int Start = Mathf.Min(YStart, YEnd);
+        int End = Mathf.Max(YStart, YEnd);
+        for (int y = Start; y <= End; y++)
         {
-            map[x, y] = 0;
+            Map[X, y] = 0;
         }
     }
 }
