@@ -15,6 +15,9 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     public TileBase WallTile;
 
+    [Header("Player Settings")]
+    public GameObject PlayerPrefab;
+
     [Header("Generation Settings")]
     public int Width = 50;
 
@@ -179,6 +182,18 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                     }
                 }
             }
+        }
+
+        // Instantiate player in the center of the first room
+        if (PlayerPrefab != null && Rooms.Count > 0)
+        {
+            Vector2Int PlayerSpawn = new Vector2Int(Rooms[0].x + Rooms[0].width / 2,
+            Rooms[0].y + Rooms[0].height / 2);
+
+            Vector3 WorldPosition = MapTile.CellToWorld(new Vector3Int(PlayerSpawn.x,
+            PlayerSpawn.y, 0));
+            
+            Instantiate(PlayerPrefab, WorldPosition, Quaternion.identity);
         }
     }
 
