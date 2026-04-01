@@ -79,5 +79,6 @@
         "vazio",
         "Verifica"
     ],
-    "dotnet.preferCSharpExtension": true
+    "dotnet.preferCSharpExtension": true,
+    "dotnet.defaultSolution": "Room_700.sln"
 }
