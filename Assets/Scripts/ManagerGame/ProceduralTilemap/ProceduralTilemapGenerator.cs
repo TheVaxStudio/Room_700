@@ -11,6 +11,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     public Tilemap WallTilemap;
 
+    public TileBase DoorTile;
+
     public TileBase FloorTile;
 
     public TileBase WallTile;
@@ -196,6 +198,11 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                     MapTile.SetTile(Position, FloorTile);
                 }
 
+                if (Map[x, y] == 0)
+                {
+                    MapTile.SetTile(Position, DoorTile);
+                }
+
                 else
                 {
                     if (WallTilemap != null)
@@ -255,7 +262,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             for (int dx = 0; dx < 2; dx++)
             {
                 int xPos = X + dx;
-                
+
                 if (xPos < Width)
                 {
                     Map[xPos, y] = 0;
