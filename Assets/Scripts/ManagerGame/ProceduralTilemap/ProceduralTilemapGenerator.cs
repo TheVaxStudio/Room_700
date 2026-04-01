@@ -80,13 +80,19 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         // Create a 2D array to represent the map
         int[,] Map = new int[Width, Height];
 
-        // Initialize with walls
+        // Ensure walls at the borders
         for (int x = 0; x < Width; x++)
         {
-            for (int y = 0; y < Height; y++)
-            {
-                Map[x, y] = 1; // 1 = wall
-            }
+            Map[x, 0] = 1; // Bottom border
+
+            Map[x, Height - 1] = 1; // Top border
+        }
+
+        for (int y = 0; y < Height; y++)
+        {
+            Map[0, y] = 1; // Left border
+            
+            Map[Width - 1, y] = 1; // Right border
         }
 
         // Generate rooms
