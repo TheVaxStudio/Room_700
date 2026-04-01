@@ -157,14 +157,17 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             }
         }
 
-        // Add grid walls dividing the map into 5 sections
+        // Add grid walls dividing the map into 5 sections, but leave corridors open
         for (int i = 1; i < 5; i++)
         {
             int WallX = i * Width / 5;
 
             for (int y = 0; y < Height; y++)
             {
-                Map[WallX, y] = 1; // vertical walls
+                if (Map[WallX, y] != 0) // only place wall if not already floor (corridor)
+                {
+                    Map[WallX, y] = 1; // vertical walls
+                }
             }
         }
 
@@ -174,7 +177,10 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
             for (int x = 0; x < Width; x++)
             {
-                Map[x, WallY] = 1; // horizontal walls
+                if (Map[x, WallY] != 0) // only place wall if not already floor (corridor)
+                {
+                    Map[x, WallY] = 1; // horizontal walls
+                }
             }
         }
 
@@ -229,7 +235,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             for (int dy = 0; dy < 2; dy++)
             {
                 int yPos = Y + dy;
-                
+
                 if (yPos < Height)
                 {
                     Map[x, yPos] = 0;
