@@ -49,7 +49,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             {
                 CompositeCollider2D Composite =
                 WallTilemap.gameObject.AddComponent<CompositeCollider2D>();
-                
+
                 Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
             }
         }
@@ -63,7 +63,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         }
 
         Rdn = new Random(Seed);
-        
+
         GenerateDungeon();
     }
 
@@ -80,19 +80,13 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         // Create a 2D array to represent the map
         int[,] Map = new int[Width, Height];
 
-        // Ensure walls at the borders
+        // Initialize with walls
         for (int x = 0; x < Width; x++)
         {
-            Map[x, 0] = 1; // Bottom border
-
-            Map[x, Height - 1] = 1; // Top border
-        }
-
-        for (int y = 0; y < Height; y++)
-        {
-            Map[0, y] = 1; // Left border
-            
-            Map[Width - 1, y] = 1; // Right border
+            for (int y = 0; y < Height; y++)
+            {
+                Map[x, y] = 1; // 1 = wall
+            }
         }
 
         // Generate rooms
@@ -105,7 +99,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
 
             int RoomX = Rdn.Next(1, Width - RoomWidth - 1);
-            
+
             int RoomY = Rdn.Next(1, Height - RoomHeight - 1);
 
             RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
@@ -142,7 +136,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         {
             Vector2Int PrevCenter = new Vector2Int(Rooms[i - 1].x + Rooms[i - 1].width / 2,
             Rooms[i - 1].y + Rooms[i - 1].height / 2);
-            
+
             Vector2Int CurrCenter = new Vector2Int(Rooms[i].x + Rooms[i].width / 2,
             Rooms[i].y + Rooms[i].height / 2);
 
@@ -160,6 +154,27 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                 CreateVerticalCorridor(Map, PrevCenter.y, CurrCenter.y, PrevCenter.x);
 
                 CreateHorizontalCorridor(Map, PrevCenter.x, CurrCenter.x, CurrCenter.y);
+            }
+        }
+
+        // Add grid walls dividing the map into 5 sections
+        for (int i = 1; i < 5; i++)
+        {
+            int WallX = i * Width / 5;
+
+            for (int y = 0; y < Height; y++)
+            {
+                Map[WallX, y] = 1; // vertical walls
+            }
+        }
+
+        for (int i = 1; i < 5; i++)
+        {
+            int WallY = i * Height / 5;
+
+            for (int x = 0; x < Width; x++)
+            {
+                Map[x, WallY] = 1; // horizontal walls
             }
         }
 
@@ -198,7 +213,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
             Vector3 WorldPosition = MapTile.CellToWorld(new Vector3Int(PlayerSpawn.x,
             PlayerSpawn.y, 0));
-            
+
             Instantiate(PlayerPrefab, WorldPosition, Quaternion.identity);
         }
     }
