@@ -53,8 +53,8 @@ MonoBehaviour:
   DoorPrefab: {fileID: 9195758322941129950, guid: e0e9c63ddbc200247bd4ee5f0eacc4fe, type: 3}
   Width: 50
   Height: 50
-  MinRoomSize: 3
-  MaxRoomSize: 10
-  MaxRooms: 10
+  MinRoomSize: 5
+  MaxRoomSize: 15
+  MaxRooms: 50
   UseRandomSeed: 1
   Seed: 0

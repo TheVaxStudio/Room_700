@@ -23,6 +23,9 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     [Header("Door Settings")]
     public GameObject DoorPrefab;
 
+    [Header("Bed Settings")]
+    public GameObject BedPrefab;
+
     [Header("Generation Settings")]
     public int Width = 50;
 
@@ -232,7 +235,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         if (DoorPrefab != null && Rooms.Count > 0)
         {
             RectInt LastRoom = Rooms[Rooms.Count - 1];
-            
+
             Vector2Int DoorSpawn = new Vector2Int(LastRoom.x + LastRoom.width / 2,
             LastRoom.y + LastRoom.height / 2);
 
@@ -240,6 +243,20 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             DoorSpawn.y, 0));
 
             Instantiate(DoorPrefab, WorldPosition, Quaternion.identity);
+        }
+
+        // Instantiate bed in the center of the second room
+        if (BedPrefab != null && Rooms.Count > 1)
+        {
+            RectInt SecondRoom = Rooms[1];
+
+            Vector2Int BedSpawn = new Vector2Int(SecondRoom.x + SecondRoom.width / 2,
+            SecondRoom.y + SecondRoom.height / 2);
+
+            Vector3 WorldPosition = MapTile.CellToWorld(new Vector3Int(BedSpawn.x,
+            BedSpawn.y, 0));
+
+            Instantiate(BedPrefab, WorldPosition, Quaternion.identity);
         }
     }
 
