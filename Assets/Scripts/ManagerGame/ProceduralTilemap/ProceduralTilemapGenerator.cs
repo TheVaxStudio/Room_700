@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityRandom = UnityEngine.Random;
 using ManagerGame.ProceduralTilemap;
 
-public class ProceduralTilemapGenerator : MonoBehaviour
+public class ProceduralTilemapGenerator : MonoBehaviour    
 {
     [Header("Tilemap Settings")]
     public Tilemap MapTile;
@@ -33,6 +33,11 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     [Header("Enemy Settings")]
     public EnemySpawner EnemySpawn;
 
+    [Header("Loot Settings")]
+    public GameObject KeyPrefab;
+
+    
+
     [Header("Generation Settings")]
     int Width = 100;
 
@@ -57,6 +62,9 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     bool DoorSpawned = false;
 
     bool BedSpawned = false;
+
+    bool KeySpawned = false;
+    // Spawn key (loot) in a random room (not player, door, or bed room)
     
     void Awake()
     {
@@ -191,9 +199,11 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             for (int i = 0; i < roomsPerQuadrant; i++)
             {
                 int RoomWidth = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+
                 int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
 
                 int maxRoomX = maxX - RoomWidth + 1;
+                
                 int maxRoomY = maxY - RoomHeight + 1;
 
                 // Corrige limites inválidos para evitar ArgumentOutOfRangeException
@@ -203,16 +213,19 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                 }
 
                 int RoomX = Rdn.Next(minX, maxRoomX);
+
                 int RoomY = Rdn.Next(minY, maxRoomY);
 
                 RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
 
                 bool Overlaps = false;
+                
                 foreach (RectInt Room in Rooms)
                 {
                     if (NewRoom.Overlaps(Room))
                     {
                         Overlaps = true;
+                
                         break;
                     }
                 }
@@ -364,6 +377,23 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             EnemySpawn.ClearEnemies();
 
             EnemySpawn.SpawnEnemies(Rooms, Map, MapTile, Seed);
+        }
+        
+        if (!KeySpawned && KeyPrefab != null && Rooms.Count > 3)
+        {
+            // Avoid first (player), second (bed), and last (door) rooms
+            int KeyRoomIndex = Rdn.Next(2, Rooms.Count - 1);
+
+            RectInt KeyRoom = Rooms[KeyRoomIndex];
+
+            Vector2Int KeySpawn = new Vector2Int(KeyRoom.x + KeyRoom.width / 2,
+            KeyRoom.y + KeyRoom.height / 2);
+
+            Vector3 KeyWorldPosition = MapTile.CellToWorld(new Vector3Int(KeySpawn.x, KeySpawn.y, 0));
+
+            Instantiate(KeyPrefab, KeyWorldPosition, Quaternion.identity);
+            
+            KeySpawned = true;
         }
 
         yield return new WaitForSeconds(5.0f); // wait for 5 seconds before completing generation
