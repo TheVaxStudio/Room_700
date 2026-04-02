@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Random = System.Random;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     [Header("Player Settings")]
     public GameObject PlayerPrefab;
+
+    public Transform Player;
 
     [Header("Door Settings")]
     public GameObject DoorPrefab;
@@ -43,6 +46,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     Random Rdn;
 
+    float GenerationTimer = 0.0f;
+
     void Awake()
     {
         // Add colliders to WallTilemap
@@ -61,10 +66,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                 Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
             }
         }
-    }
 
-    void Start()
-    {
+        // Initialize generation
         if (UseRandomSeed)
         {
             Seed = UnityRandom.Range(0, int.MaxValue);
@@ -72,11 +75,36 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
         Rdn = new Random(Seed);
 
-        GenerateDungeon();
+        StartCoroutine(GenerateDungeon());
     }
 
-    void GenerateDungeon()
+    void Update()
     {
+        if (Player != null)
+        {
+            GenerationTimer += Time.deltaTime;
+
+            if (GenerationTimer >= 20.0f)
+            {
+                GenerationTimer = 0.0f;
+
+                StartCoroutine(GenerateDungeon());
+            }
+        }
+    }
+
+    IEnumerator GenerateDungeon()
+    {
+        // Update seed based on player position for infinite generation
+        if (Player != null)
+        {
+            Vector3 Pos = Player.position;
+
+            Seed = (int)(Pos.x / 100.0f) + (int)(Pos.y / 100.0f) * 10000;
+            
+            Rdn = new Random(Seed);
+        }
+
         // Clear the tilemaps
         MapTile.ClearAllTiles();
 
@@ -258,6 +286,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
             Instantiate(BedPrefab, WorldPosition, Quaternion.identity);
         }
+
+        yield return GenerationTimer = 20.0f; // wait for 20 seconds before allowing next generation
     }
 
     void CreateHorizontalCorridor(int[,] Map, int XStart, int XEnd, int Y)
