@@ -191,23 +191,28 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             for (int i = 0; i < roomsPerQuadrant; i++)
             {
                 int RoomWidth = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
-
                 int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
 
-                int RoomX = Rdn.Next(minX, maxX - RoomWidth + 1);
-             
-                int RoomY = Rdn.Next(minY, maxY - RoomHeight + 1);
+                int maxRoomX = maxX - RoomWidth + 1;
+                int maxRoomY = maxY - RoomHeight + 1;
+
+                // Corrige limites inválidos para evitar ArgumentOutOfRangeException
+                if (minX >= maxRoomX || minY >= maxRoomY)
+                {
+                    continue; // pula esta iteração se não houver espaço suficiente
+                }
+
+                int RoomX = Rdn.Next(minX, maxRoomX);
+                int RoomY = Rdn.Next(minY, maxRoomY);
 
                 RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
 
                 bool Overlaps = false;
-             
                 foreach (RectInt Room in Rooms)
                 {
                     if (NewRoom.Overlaps(Room))
                     {
                         Overlaps = true;
-             
                         break;
                     }
                 }
@@ -215,7 +220,6 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                 if (!Overlaps)
                 {
                     Rooms.Add(NewRoom);
-
                     // Carve out the room
                     for (int x = RoomX; x < RoomX + RoomWidth; x++)
                     {
