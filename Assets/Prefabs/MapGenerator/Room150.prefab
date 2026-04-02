@@ -46,13 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProceduralTilemapGenerator
   MapTile: {fileID: 0}
   WallTilemap: {fileID: 0}
-  DoorTile: {fileID: 11400000, guid: 0fdc27bf04cfd4942b2eed885a7ffa1d, type: 2}
   FloorTile: {fileID: 11400000, guid: 2909be5ede4c8a4449fec8c67a778fcb, type: 2}
   WallTile: {fileID: 11400000, guid: 8d6e4cf4a2076b549a344d1fecf64472, type: 2}
   PlayerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
-  Player: {fileID: 6252699890257962969, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
   DoorPrefab: {fileID: 9195758322941129950, guid: e0e9c63ddbc200247bd4ee5f0eacc4fe, type: 3}
   BedPrefab: {fileID: 4815204354568481180, guid: 209c2d2b4fc7f2a4e9501d968b302635, type: 3}
+  KeyPrefab: {fileID: 5024492031455265544, guid: dad16f1080b53f2429bd1bec79d7fc81, type: 3}
   EnemySpawn: {fileID: 1790538882086936909, guid: b324498888ddb194a9502a2d00ad0945, type: 3}
-  UseRandomSeed: 1
-  Seed: 0
+  Player: {fileID: 6252699890257962969, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
