@@ -299,7 +299,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             BedSpawned = true;
         }
 
-        yield return GenerationTimer = 20.0f; // wait for 20 seconds before allowing next generation
+        yield return GenerationTimer = 5.0f; // wait for 5 seconds before allowing next generation
     }
 
     void CreateHorizontalCorridor(int[,] Map, int XStart, int XEnd, int Y)
