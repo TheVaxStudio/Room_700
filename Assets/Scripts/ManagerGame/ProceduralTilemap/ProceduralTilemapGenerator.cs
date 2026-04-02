@@ -96,15 +96,22 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                 if (Map[x, y] == 0)
                 {
                     if (MapTile != null && FloorTile != null)
+                    {
                         MapTile.SetTile(pos, FloorTile);
+                    }
                 }
 
                 else
                 {
                     if (WallTilemap != null && WallTile != null)
+                    {
                         WallTilemap.SetTile(pos, WallTile);
+                    }
+
                     else if (MapTile != null && WallTile != null)
+                    {
                         MapTile.SetTile(pos, WallTile);
+                    }
                 }
             }
         }
