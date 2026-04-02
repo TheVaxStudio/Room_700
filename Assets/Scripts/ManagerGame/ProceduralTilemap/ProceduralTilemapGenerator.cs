@@ -27,15 +27,15 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     public GameObject BedPrefab;
 
     [Header("Generation Settings")]
-    public int Width = 50;
+    int Width = 100;
 
-    public int Height = 50;
+    int Height = 100;
 
-    public int MinRoomSize = 3;
+    int MinRoomSize = 10;
 
-    public int MaxRoomSize = 10;
+    int MaxRoomSize = 50;
 
-    public int MaxRooms = 10;
+    int MaxRooms = 500;
 
     public bool UseRandomSeed = true;
 
