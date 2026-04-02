@@ -3,7 +3,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = System.Random;
 
-public class EnemySpawner : MonoBehaviour
+namespace ManagerGame.ProceduralTilemap
+{
+    public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> EnemyPrefabs;
@@ -48,8 +50,8 @@ public class EnemySpawner : MonoBehaviour
                 // Random enemy from list
                 GameObject EnemyPrefab = EnemyPrefabs[Rdn.Next(0, EnemyPrefabs.Count)];
 
-                Instantiate(EnemyPrefab, WorldPosition, Quaternion.identity);
-                    
+                Instantiate(EnemyPrefab, WorldPosition, Quaternion.identity, transform);
+                
                 CurrentEnemyCount++;
             }
         }
@@ -65,4 +67,4 @@ public class EnemySpawner : MonoBehaviour
 
         CurrentEnemyCount = 0;
     }
-}
+}}

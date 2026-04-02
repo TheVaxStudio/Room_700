@@ -4,6 +4,7 @@ using Random = System.Random;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityRandom = UnityEngine.Random;
+using ManagerGame.ProceduralTilemap;
 
 public class ProceduralTilemapGenerator : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     public GameObject BedPrefab;
 
     [Header("Enemy Settings")]
-    public EnemySpawner EnemySpawner;
+    public EnemySpawner EnemySpawn;
 
     [Header("Generation Settings")]
     int Width = 100;
@@ -49,14 +50,14 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     Random Rdn;
 
-    float GenerationTimer = 5.0f;
+    float GenerationTimer = 0.0f;
 
     bool PlayerSpawned = false;
 
     bool DoorSpawned = false;
 
     bool BedSpawned = false;
-
+    
     void Awake()
     {
         // Add colliders to WallTilemap
@@ -75,6 +76,16 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                 Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
             }
         }
+
+        // Initialize generation
+        if (UseRandomSeed)
+        {
+            Seed = UnityRandom.Range(0, int.MaxValue);
+        }
+
+        Rdn = new Random(Seed);
+
+        StartCoroutine(GenerateDungeon());
     }
 
     void Update()
@@ -83,7 +94,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         {
             GenerationTimer += Time.deltaTime;
 
-            if (GenerationTimer >= 5.0f)
+            if (GenerationTimer >= 20.0f)
             {
                 GenerationTimer = 0.0f;
 
@@ -100,7 +111,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             Vector3 Pos = Player.position;
 
             Seed = (int)(Pos.x / 100.0f) + (int)(Pos.y / 100.0f) * 10000;
-
+            
             Rdn = new Random(Seed);
         }
 
@@ -184,19 +195,19 @@ public class ProceduralTilemapGenerator : MonoBehaviour
                 int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
 
                 int RoomX = Rdn.Next(minX, maxX - RoomWidth + 1);
-
+             
                 int RoomY = Rdn.Next(minY, maxY - RoomHeight + 1);
 
                 RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
 
                 bool Overlaps = false;
-
+             
                 foreach (RectInt Room in Rooms)
                 {
                     if (NewRoom.Overlaps(Room))
                     {
                         Overlaps = true;
-
+             
                         break;
                     }
                 }
@@ -343,13 +354,15 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             BedSpawned = true;
         }
 
-        // Spawn enemies in the dungeon
-        if (EnemySpawner != null)
+        // Spawn enemies once per dungeon generation pass
+        if (EnemySpawn != null)
         {
-            EnemySpawner.SpawnEnemies(Rooms, Map, MapTile, Seed);
+            EnemySpawn.ClearEnemies();
+
+            EnemySpawn.SpawnEnemies(Rooms, Map, MapTile, Seed);
         }
 
-        yield return GenerationTimer = 5.0f;
+        yield return new WaitForSeconds(5f); // wait for 5 seconds before completing generation
     }
 
     void CreateHorizontalCorridor(int[,] Map, int XStart, int XEnd, int Y)
