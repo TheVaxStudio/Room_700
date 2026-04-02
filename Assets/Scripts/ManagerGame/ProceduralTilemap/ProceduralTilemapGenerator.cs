@@ -131,43 +131,94 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             }
         }
 
-        // Generate rooms
+        // Generate rooms in four directions (quadrants)
         List<RectInt> Rooms = new List<RectInt>();
 
-        for (int i = 0; i < MaxRooms; i++)
+        int roomsPerQuadrant = MaxRooms / 4;
+
+        for (int quadrant = 0; quadrant < 4; quadrant++)
         {
-            int RoomWidth = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+            int minX, maxX, minY, maxY;
 
-            int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
-
-            int RoomX = Rdn.Next(1, Width - RoomWidth - 1);
-
-            int RoomY = Rdn.Next(1, Height - RoomHeight - 1);
-
-            RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
-
-            bool Overlaps = false;
-
-            foreach (RectInt Room in Rooms)
+            if (quadrant == 0) // Top-left
             {
-                if (NewRoom.Overlaps(Room))
-                {
-                    Overlaps = true;
+                minX = 1;
 
-                    break;
-                }
+                maxX = Width / 2;
+
+                minY = 1;
+
+                maxY = Height / 2;
             }
 
-            if (!Overlaps)
+            else if (quadrant == 1) // Top-right
             {
-                Rooms.Add(NewRoom);
+                minX = Width / 2;
 
-                // Carve out the room
-                for (int x = RoomX; x < RoomX + RoomWidth; x++)
+                maxX = Width - MaxRoomSize - 1;
+
+                minY = 1;
+
+                maxY = Height / 2;
+            }
+
+            else if (quadrant == 2) // Bottom-left
+            {
+                minX = 1;
+
+                maxX = Width / 2;
+
+                minY = Height / 2;
+
+                maxY = Height - MaxRoomSize - 1;
+            }
+
+            else // Bottom-right
+            {
+                minX = Width / 2;
+
+                maxX = Width - MaxRoomSize - 1;
+
+                minY = Height / 2;
+
+                maxY = Height - MaxRoomSize - 1;
+            }
+
+            for (int i = 0; i < roomsPerQuadrant; i++)
+            {
+                int RoomWidth = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+
+                int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+
+                int RoomX = Rdn.Next(minX, maxX - RoomWidth + 1);
+             
+                int RoomY = Rdn.Next(minY, maxY - RoomHeight + 1);
+
+                RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
+
+                bool Overlaps = false;
+             
+                foreach (RectInt Room in Rooms)
                 {
-                    for (int y = RoomY; y < RoomY + RoomHeight; y++)
+                    if (NewRoom.Overlaps(Room))
                     {
-                        Map[x, y] = 0; // 0 = floor
+                        Overlaps = true;
+             
+                        break;
+                    }
+                }
+
+                if (!Overlaps)
+                {
+                    Rooms.Add(NewRoom);
+
+                    // Carve out the room
+                    for (int x = RoomX; x < RoomX + RoomWidth; x++)
+                    {
+                        for (int y = RoomY; y < RoomY + RoomHeight; y++)
+                        {
+                            Map[x, y] = 0; // 0 = floor
+                        }
                     }
                 }
             }
