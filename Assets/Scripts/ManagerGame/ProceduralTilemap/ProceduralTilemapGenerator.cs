@@ -36,12 +36,9 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     [Header("Loot Settings")]
     public GameObject KeyPrefab;
 
-    
-
     [Header("Generation Settings")]
-    int Width = 100;
-
-    int Height = 100;
+    int Width = 64;
+    int Height = 64;
 
     int MinRoomSize = 10;
 
@@ -118,7 +115,13 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         {
             Vector3 Pos = Player.position;
 
-            Seed = (int)(Pos.x / 100.0f) + (int)(Pos.y / 100.0f) * 10000;
+            // Calcula o chunk atual do player
+            int ChunkX = Mathf.FloorToInt(Pos.x / Width);
+
+            int ChunkY = Mathf.FloorToInt(Pos.y / Height);
+
+            // Seed única para cada chunk
+            Seed = ChunkX + ChunkY * 10000;
             
             Rdn = new Random(Seed);
         }
