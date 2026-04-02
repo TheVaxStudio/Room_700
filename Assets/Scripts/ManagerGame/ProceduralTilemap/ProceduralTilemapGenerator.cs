@@ -5,9 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityRandom = UnityEngine.Random;
 
-namespace ManagerGame.ProceduralTilemap
-{
-    public class ProceduralTilemapGenerator : MonoBehaviour
+public class ProceduralTilemapGenerator : MonoBehaviour
 {
     [Header("Tilemap Settings")]
     public Tilemap MapTile;
@@ -58,7 +56,7 @@ namespace ManagerGame.ProceduralTilemap
     bool DoorSpawned = false;
 
     bool BedSpawned = false;
-    
+
     void Awake()
     {
         // Add colliders to WallTilemap
@@ -77,16 +75,6 @@ namespace ManagerGame.ProceduralTilemap
                 Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
             }
         }
-
-        // Initialize generation
-        if (UseRandomSeed)
-        {
-            Seed = UnityRandom.Range(0, int.MaxValue);
-        }
-
-        Rdn = new Random(Seed);
-
-        StartCoroutine(GenerateDungeon());
     }
 
     void Update()
@@ -112,7 +100,7 @@ namespace ManagerGame.ProceduralTilemap
             Vector3 Pos = Player.position;
 
             Seed = (int)(Pos.x / 100.0f) + (int)(Pos.y / 100.0f) * 10000;
-            
+
             Rdn = new Random(Seed);
         }
 
@@ -196,19 +184,19 @@ namespace ManagerGame.ProceduralTilemap
                 int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
 
                 int RoomX = Rdn.Next(minX, maxX - RoomWidth + 1);
-             
+
                 int RoomY = Rdn.Next(minY, maxY - RoomHeight + 1);
 
                 RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
 
                 bool Overlaps = false;
-             
+
                 foreach (RectInt Room in Rooms)
                 {
                     if (NewRoom.Overlaps(Room))
                     {
                         Overlaps = true;
-             
+
                         break;
                     }
                 }
@@ -403,5 +391,4 @@ namespace ManagerGame.ProceduralTilemap
             }
         }
     }
-}
 }
