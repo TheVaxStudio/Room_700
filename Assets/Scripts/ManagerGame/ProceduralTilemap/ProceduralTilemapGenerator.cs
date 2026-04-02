@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityRandom = UnityEngine.Random;
 
-public class ProceduralTilemapGenerator : MonoBehaviour
+namespace ManagerGame.ProceduralTilemap
+{
+    public class ProceduralTilemapGenerator : MonoBehaviour
 {
     [Header("Tilemap Settings")]
     public Tilemap MapTile;
@@ -28,6 +30,9 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     [Header("Bed Settings")]
     public GameObject BedPrefab;
+
+    [Header("Enemy Settings")]
+    public EnemySpawner EnemySpawner;
 
     [Header("Generation Settings")]
     int Width = 100;
@@ -350,7 +355,13 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             BedSpawned = true;
         }
 
-        yield return GenerationTimer = 5.0f; // wait for 5 seconds before allowing next generation
+        // Spawn enemies in the dungeon
+        if (EnemySpawner != null)
+        {
+            EnemySpawner.SpawnEnemies(Rooms, Map, MapTile, Seed);
+        }
+
+        yield return GenerationTimer = 5.0f;
     }
 
     void CreateHorizontalCorridor(int[,] Map, int XStart, int XEnd, int Y)
@@ -392,4 +403,5 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             }
         }
     }
+}
 }
