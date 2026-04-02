@@ -49,7 +49,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     Random Rdn;
 
-    float GenerationTimer = 0.0f;
+    float GenerationTimer = 5.0f;
 
     bool PlayerSpawned = false;
 
@@ -83,7 +83,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         {
             GenerationTimer += Time.deltaTime;
 
-            if (GenerationTimer >= 20.0f)
+            if (GenerationTimer >= 5.0f)
             {
                 GenerationTimer = 0.0f;
 
