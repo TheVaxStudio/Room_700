@@ -48,6 +48,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     float GenerationTimer = 0.0f;
 
+    bool PlayerSpawned = false;
+
     void Awake()
     {
         // Add colliders to WallTilemap
@@ -248,7 +250,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         }
 
         // Instantiate player in the center of the first room
-        if (PlayerPrefab != null && Rooms.Count > 0)
+        if (!PlayerSpawned && PlayerPrefab != null && Rooms.Count > 0)
         {
             Vector2Int PlayerSpawn = new Vector2Int(Rooms[0].x + Rooms[0].width / 2,
             Rooms[0].y + Rooms[0].height / 2);
@@ -257,6 +259,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             PlayerSpawn.y, 0));
 
             Instantiate(PlayerPrefab, WorldPosition, Quaternion.identity);
+            
+            PlayerSpawned = true;
         }
 
         // Instantiate door in the center of the last room
