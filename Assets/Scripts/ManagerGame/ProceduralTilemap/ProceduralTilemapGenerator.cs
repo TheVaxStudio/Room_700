@@ -20,6 +20,9 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     [Header("Player Settings")]
     public GameObject PlayerPrefab;
 
+    [Header("Door Settings")]
+    public GameObject DoorPrefab;
+
     [Header("Generation Settings")]
     public int Width = 50;
 
@@ -223,6 +226,20 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             PlayerSpawn.y, 0));
 
             Instantiate(PlayerPrefab, WorldPosition, Quaternion.identity);
+        }
+
+        // Instantiate door in the center of the last room
+        if (DoorPrefab != null && Rooms.Count > 0)
+        {
+            RectInt LastRoom = Rooms[Rooms.Count - 1];
+            
+            Vector2Int DoorSpawn = new Vector2Int(LastRoom.x + LastRoom.width / 2,
+            LastRoom.y + LastRoom.height / 2);
+
+            Vector3 WorldPosition = MapTile.CellToWorld(new Vector3Int(DoorSpawn.x,
+            DoorSpawn.y, 0));
+
+            Instantiate(DoorPrefab, WorldPosition, Quaternion.identity);
         }
     }
 
