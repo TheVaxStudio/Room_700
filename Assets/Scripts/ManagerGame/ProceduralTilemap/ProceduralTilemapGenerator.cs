@@ -362,7 +362,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             EnemySpawn.SpawnEnemies(Rooms, Map, MapTile, Seed);
         }
 
-        yield return new WaitForSeconds(5f); // wait for 5 seconds before completing generation
+        yield return new WaitForSeconds(5.0f); // wait for 5 seconds before completing generation
     }
 
     void CreateHorizontalCorridor(int[,] Map, int XStart, int XEnd, int Y)
