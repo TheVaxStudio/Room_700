@@ -50,6 +50,10 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     bool PlayerSpawned = false;
 
+    bool DoorSpawned = false;
+
+    bool BedSpawned = false;
+    
     void Awake()
     {
         // Add colliders to WallTilemap
@@ -259,12 +263,12 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             PlayerSpawn.y, 0));
 
             Instantiate(PlayerPrefab, WorldPosition, Quaternion.identity);
-            
+
             PlayerSpawned = true;
         }
 
         // Instantiate door in the center of the last room
-        if (DoorPrefab != null && Rooms.Count > 0)
+        if (!DoorSpawned && DoorPrefab != null && Rooms.Count > 0)
         {
             RectInt LastRoom = Rooms[Rooms.Count - 1];
 
@@ -275,10 +279,12 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             DoorSpawn.y, 0));
 
             Instantiate(DoorPrefab, WorldPosition, Quaternion.identity);
+
+            DoorSpawned = true;
         }
 
         // Instantiate bed in the center of the second room
-        if (BedPrefab != null && Rooms.Count > 1)
+        if (!BedSpawned && BedPrefab != null && Rooms.Count > 1)
         {
             RectInt SecondRoom = Rooms[1];
 
@@ -289,6 +295,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             BedSpawn.y, 0));
 
             Instantiate(BedPrefab, WorldPosition, Quaternion.identity);
+
+            BedSpawned = true;
         }
 
         yield return GenerationTimer = 20.0f; // wait for 20 seconds before allowing next generation
