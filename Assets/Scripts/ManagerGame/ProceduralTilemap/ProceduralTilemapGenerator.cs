@@ -26,6 +26,9 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     [Header("Bed Settings")]
     public GameObject BedPrefab;
 
+    [Header("Key Settings")]
+    public GameObject KeyPrefab;
+
     [Header("Generation Settings")]
     int Width = 100;
 
@@ -38,6 +41,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     int MaxRooms = 500;
 
     public bool UseRandomSeed = true;
+
+    bool KeySpawned;
 
     public int Seed = 0;
 
@@ -257,6 +262,33 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             BedSpawn.y, 0));
 
             Instantiate(BedPrefab, WorldPosition, Quaternion.identity);
+        }
+
+        // Spawn aleatório de chave em uma sala aleatória (exceto player, cama e porta)
+        if (!KeySpawned && KeyPrefab != null && Rooms != null && Rooms.Count > 3 && MapTile != null)
+        {
+            int Min = 2;
+
+            int Max = Rooms.Count - 1;
+            
+            if (Max > Min)
+            {
+                int KeyRoomIndex = Rdn.Next(Min, Max);
+
+                if (KeyRoomIndex >= 0 && KeyRoomIndex < Rooms.Count)
+                {
+                    RectInt KeyRoom = Rooms[KeyRoomIndex];
+
+                    Vector2Int KeySpawn = new Vector2Int(KeyRoom.x + KeyRoom.width / 2,
+                    KeyRoom.y + KeyRoom.height / 2);
+
+                    Vector3 KeyWorldPos = MapTile.CellToWorld(new Vector3Int(KeySpawn.x, KeySpawn.y, 0));
+
+                    Instantiate(KeyPrefab, KeyWorldPos, Quaternion.identity);
+                    
+                    KeySpawned = true;
+                }
+            }
         }
     }
 
