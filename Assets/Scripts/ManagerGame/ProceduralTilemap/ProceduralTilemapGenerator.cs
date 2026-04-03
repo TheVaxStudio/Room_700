@@ -187,9 +187,15 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             EnemySpawn.SpawnEnemies(Rooms, Map, MapTile, Seed);
         }
         
-        if (KeyPrefab != null)
+        // Spawn aleatório de chave em uma sala aleatória (exceto player, cama e porta)
+        if (!KeySpawned && KeyPrefab != null && Rooms.Count > 3)
         {
-            int KeyRoomIndex = Rdn.Next(2, Rooms.Count - 1);
+            // Evita as salas 0 (player), 1 (cama) e última (porta)
+            int Min = 2;
+
+            int Max = Rooms.Count - 1;
+
+            int KeyRoomIndex = Rdn.Next(Min, Max);
 
             RectInt KeyRoom = Rooms[KeyRoomIndex];
 
