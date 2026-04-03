@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Random = System.Random;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -52,11 +53,16 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     int Seed = 0;
 
-    System.Random Rdn;
+    Random Rdn;
 
     int[,] Map;
     
     List<RectInt> Rooms;
+
+    void Start()
+    {
+        StartCoroutine(GenerateDungeon());
+    }
 
     void Update()
     {
@@ -66,13 +72,13 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         {
             GenerationTimer = 0.0f;
 
-            PlayerSpawned = true;
+            PlayerSpawned = false;
             
-            DoorSpawned = true;
+            DoorSpawned = false;
             
-            BedSpawned = true;
+            BedSpawned = false;
             
-            KeySpawned = true;
+            KeySpawned = false;
             
             StartCoroutine(GenerateDungeon());
         }
@@ -81,30 +87,51 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     IEnumerator GenerateDungeon()
     {
         // Place tiles on the tilemaps
-        for (int x = 0; x < Width; x++)
+        for (int X = 0; X < Width; X++)
         {
-            for (int y = 0; y < Height; y++)
+            for (int Y = 0; Y < Height; Y++)
             {
-                Vector3Int pos = new Vector3Int(x, y, 0);
+                Vector3Int Pos = new Vector3Int(X, Y, 0);
 
-                if (Map[x, y] == 0)
+                if (Map[X, Y] == 0)
                 {
                     if (MapTile != null && FloorTile != null)
                     {
-                        MapTile.SetTile(pos, FloorTile);
+                        MapTile.SetTile(Pos, FloorTile);
                     }
+                }
+
+                // Inicialização defensiva para evitar NullReferenceException no PlayMode
+                if (Map == null || Map.GetLength(0) != Width || Map.GetLength(1) != Height)
+                {
+                    Map = new int[Width, Height];
+                }
+
+                if (Rooms == null)
+                {
+                    Rooms = new List<RectInt>();
+                }
+
+                else
+                {
+                    Rooms.Clear();
+                }
+
+                if (Rdn == null)
+                {
+                    Rdn = new Random();
                 }
 
                 else
                 {
                     if (WallTilemap != null && WallTile != null)
                     {
-                        WallTilemap.SetTile(pos, WallTile);
+                        WallTilemap.SetTile(Pos, WallTile);
                     }
 
                     else if (MapTile != null && WallTile != null)
                     {
-                        MapTile.SetTile(pos, WallTile);
+                        MapTile.SetTile(Pos, WallTile);
                     }
                 }
             }
