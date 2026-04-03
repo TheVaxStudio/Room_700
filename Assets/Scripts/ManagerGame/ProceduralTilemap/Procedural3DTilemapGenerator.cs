@@ -103,11 +103,11 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
                     Rooms.Add(NewRoom);
 
                     // Carve out the room
-                    for (int x = RoomX; x < RoomX + RoomWidth; x++)
+                    for (int X = RoomX; X < RoomX + RoomWidth; X++)
                     {
-                        for (int y = RoomY; y < RoomY + RoomHeight; y++)
+                        for (int Y = RoomY; Y < RoomY + RoomHeight; Y++)
                         {
-                            Map[x, y, Floor] = 0; // floor
+                            Map[X, Y, Floor] = 0; // floor
                         }
                     }
                 }
@@ -130,28 +130,28 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
 
         foreach (var FloorRooms in RoomsByFloor.Values)
         {
-            for (int i = 1; i < FloorRooms.Count; i++)
+            for (int I = 1; I < FloorRooms.Count; I++)
             {
-                Vector2Int PrevCenter = FloorRooms[i - 1].Center;
+                Vector2Int PrevCenter = FloorRooms[I - 1].Center;
 
-                Vector2Int CurrCenter = FloorRooms[i].Center;
+                Vector2Int CurrCenter = FloorRooms[I].Center;
 
                 if (Rdn.Next(0, 2) == 0)
                 {
                     CreateHorizontalCorridor3D(Map, PrevCenter.x, CurrCenter.x,
-                    PrevCenter.y, FloorRooms[i - 1].Floor);
+                    PrevCenter.y, FloorRooms[I - 1].Floor);
                     
                     CreateVerticalCorridor3D(Map, PrevCenter.y, CurrCenter.y,
-                    CurrCenter.x, FloorRooms[i - 1].Floor);
+                    CurrCenter.x, FloorRooms[I - 1].Floor);
                 }
 
                 else
                 {
                     CreateVerticalCorridor3D(Map, PrevCenter.y, CurrCenter.y,
-                    PrevCenter.x, FloorRooms[i - 1].Floor);
+                    PrevCenter.x, FloorRooms[I - 1].Floor);
                     
                     CreateHorizontalCorridor3D(Map, PrevCenter.x, CurrCenter.x,
-                    CurrCenter.y, FloorRooms[i - 1].Floor);
+                    CurrCenter.y, FloorRooms[I - 1].Floor);
                 }
             }
         }
@@ -165,30 +165,30 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
 
                 var Room2 = RoomsByFloor[Floor + 1][0];
 
-                Vector2Int center1 = Room1.Center;
+                Vector2Int Center1 = Room1.Center;
                 
-                Vector2Int center2 = Room2.Center;
+                Vector2Int Center2 = Room2.Center;
 
                 // Create a vertical corridor (stair)
-                for (int y = Mathf.Min(center1.y, center2.y); y <= Mathf.Max(center1.y, center2.y); y++)
+                for (int Y = Mathf.Min(Center1.y, Center2.y); Y <= Mathf.Max(Center1.y, Center2.y); Y++)
                 {
-                    Map[center1.x, y, Floor] = 0;
-                    
-                    Map[center2.x, y, Floor + 1] = 0;
+                    Map[Center1.x, Y, Floor] = 0;
+
+                    Map[Center2.x, Y, Floor + 1] = 0;
                 }
             }
         }
 
         // Instantiate tiles
-        for (int x = 0; x < Width; x++)
+        for (int X = 0; X < Width; X++)
         {
-            for (int y = 0; y < Height; y++)
+            for (int Y = 0; Y < Height; Y++)
             {
-                for (int z = 0; z < Depth; z++)
+                for (int Z = 0; Z < Depth; Z++)
                 {
-                    Vector3 Position = new Vector3(x, z * 2, y); // Adjust Y for floor height
+                    Vector3 Position = new Vector3(X, Z * 2, Y); // Adjust Y for floor height
 
-                    if (Map[x, y, z] == 0)
+                    if (Map[X, Y, Z] == 0)
                     {
                         if (FloorPrefab != null)
                         {
@@ -200,7 +200,8 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
                     {
                         if (WallPrefab != null)
                         {
-                            Instantiate(WallPrefab, Position, Quaternion.identity);
+                            // Rotate wall to face along Z axis
+                            Instantiate(WallPrefab, Position, Quaternion.Euler(0, 90, 0));
                         }
                     }
                 }
@@ -255,9 +256,9 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
 
         int End = Mathf.Max(XStart, XEnd);
         
-        for (int x = Start; x <= End; x++)
+        for (int X = Start; X <= End; X++)
         {
-            Map[x, Y, Floor] = 0;
+            Map[X, Y, Floor] = 0;
         }
     }
 
@@ -267,9 +268,9 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
 
         int End = Mathf.Max(YStart, YEnd);
         
-        for (int y = Start; y <= End; y++)
+        for (int Y = Start; Y <= End; Y++)
         {
-            Map[X, y, Floor] = 0;
+            Map[X, Y, Floor] = 0;
         }
     }
 }
