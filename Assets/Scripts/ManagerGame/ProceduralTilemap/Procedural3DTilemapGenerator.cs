@@ -5,10 +5,22 @@ using UnityRandom = UnityEngine.Random;
 
 public class Procedural3DTilemapGenerator : MonoBehaviour
 {
-    [Header("Tile Prefabs")]
-    public GameObject FloorPrefab; // Prefab with SpriteRenderer for floor tile
+    [Header("Tile Materials (Minecraft Style)")]
+    public Material FloorMaterial; // Material com textura pixel art para chão (ex: grama, terra)
 
-    public GameObject WallPrefab;  // Prefab with SpriteRenderer for wall tile
+    public Material WallMaterial;  // Material com textura pixel art para parede (ex: pedra, tijolo)
+    
+    public Material CeilingMaterial; // Opcional: material para teto
+
+    [Header("Block Settings")]
+    public bool UsePrimitiveCubes = true; // Se true, usa GameObject.CreatePrimitive(PrimitiveType.Cube) com materiais
+    
+    public Vector3 BlockScale = Vector3.one; // Escala dos blocos
+
+    [Header("Tile Prefabs (Fallback)")]
+    public GameObject FloorPrefab; // Prefab with SpriteRenderer for floor tile (fallback)
+    
+    public GameObject WallPrefab;  // Prefab with SpriteRenderer for wall tile (fallback)
 
     [Header("Object Prefabs")]
     public GameObject PlayerPrefab;
@@ -203,14 +215,44 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
 
                     if (Map[X, Y, Z] == 0)
                     {
-                        if (FloorPrefab != null)
+                        if (UsePrimitiveCubes && FloorMaterial != null)
+                        {
+                            GameObject FloorBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                            FloorBlock.transform.position = Position;
+
+                            FloorBlock.transform.localScale = BlockScale;
+
+                            FloorBlock.GetComponent<Renderer>().material = FloorMaterial;
+
+                            FloorBlock.name = "FloorBlock";
+                        }
+
+                        else if (FloorPrefab != null)
                         {
                             Instantiate(FloorPrefab, Position, Quaternion.identity);
                         }
                     }
+
                     else
                     {
-                        if (WallPrefab != null)
+                        if (UsePrimitiveCubes && WallMaterial != null)
+                        {
+                            GameObject WallBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                            WallBlock.transform.position = Position;
+
+                            WallBlock.transform.localScale = BlockScale;
+
+                            WallBlock.GetComponent<Renderer>().material = WallMaterial;
+
+                            WallBlock.name = "WallBlock";
+
+                            // Rotate wall to face along Z axis
+                            WallBlock.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        }
+
+                        else if (WallPrefab != null)
                         {
                             // Orient wall along Z axis
                             Instantiate(WallPrefab, Position, Quaternion.Euler(0, 90, 0));
