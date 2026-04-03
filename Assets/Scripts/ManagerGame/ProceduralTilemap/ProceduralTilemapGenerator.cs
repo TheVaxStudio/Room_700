@@ -1,258 +1,300 @@
-using System.Collections;
 using System.Collections.Generic;
 using Random = System.Random;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityRandom = UnityEngine.Random;
 
 public class ProceduralTilemapGenerator : MonoBehaviour
 {
-    [Header("Map Settings")]
-    int Width = 64;
-
-    int Height = 64;
-
-    int MaxRooms = 12;
-
-    int MinRoomSize = 6;
-    
-    int MaxRoomSize = 12;
-
-    [Header("Tilemaps & Tiles")]
+    [Header("Tilemap Settings")]
     public Tilemap MapTile;
 
     public Tilemap WallTilemap;
 
+    public TileBase DoorTile;
+
     public TileBase FloorTile;
-    
+
     public TileBase WallTile;
 
-    [Header("Prefabs")]
+    [Header("Player Settings")]
     public GameObject PlayerPrefab;
 
+    [Header("Door Settings")]
     public GameObject DoorPrefab;
 
+    [Header("Bed Settings")]
     public GameObject BedPrefab;
-    
-    public GameObject KeyPrefab;
 
-    [Header("Enemy Spawner")]
-    public EnemySpawner EnemySpawn;
+    [Header("Generation Settings")]
+    int Width = 100;
 
-    [Header("Generation State")]
-    public Transform Player;
+    int Height = 100;
 
-    bool PlayerSpawned = false;
+    int MinRoomSize = 10;
 
-    bool DoorSpawned = false;
+    int MaxRoomSize = 50;
 
-    bool BedSpawned = false;
+    int MaxRooms = 500;
 
-    bool KeySpawned = false;
+    public bool UseRandomSeed = true;
 
-    float GenerationTimer = 0f;
-
-    int Seed = 0;
+    public int Seed = 0;
 
     Random Rdn;
 
-    int[,] Map;
-    
-    List<RectInt> Rooms;
-
-    void Start()
+    void Awake()
     {
-        StartCoroutine(GenerateDungeon());
-    }
-
-    void Update()
-    {
-        GenerationTimer += Time.deltaTime;
-
-        if (GenerationTimer >= 20.0f)
+        // Add colliders to WallTilemap
+        if (WallTilemap != null)
         {
-            GenerationTimer = 0.0f;
+            if (WallTilemap.GetComponent<TilemapCollider2D>() == null)
+            {
+                WallTilemap.gameObject.AddComponent<TilemapCollider2D>();
+            }
 
-            PlayerSpawned = false;
-            
-            DoorSpawned = false;
-            
-            BedSpawned = false;
-            
-            KeySpawned = false;
-            
-            StartCoroutine(GenerateDungeon());
+            if (WallTilemap.GetComponent<CompositeCollider2D>() == null)
+            {
+                CompositeCollider2D Composite =
+                WallTilemap.gameObject.AddComponent<CompositeCollider2D>();
+
+                Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            }
         }
     }
 
-    IEnumerator GenerateDungeon()
+    void Start()
     {
-        // Place tiles on the tilemaps
-        for (int X = 0; X < Width; X++)
+        if (UseRandomSeed)
         {
-            for (int Y = 0; Y < Height; Y++)
+            Seed = UnityRandom.Range(0, int.MaxValue);
+        }
+
+        Rdn = new Random(Seed);
+
+        GenerateDungeon();
+    }
+
+    void GenerateDungeon()
+    {
+        // Clear the tilemaps
+        MapTile.ClearAllTiles();
+
+        if (WallTilemap != null)
+        {
+            WallTilemap.ClearAllTiles();
+        }
+
+        // Create a 2D array to represent the map
+        int[,] Map = new int[Width, Height];
+
+        // Initialize with walls
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
             {
-                Vector3Int Pos = new Vector3Int(X, Y, 0);
+                Map[x, y] = 1; // 1 = wall
+            }
+        }
 
-                if (Map[X, Y] == 0)
+        // Generate rooms
+        List<RectInt> Rooms = new List<RectInt>();
+
+        for (int i = 0; i < MaxRooms; i++)
+        {
+            int RoomWidth = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+
+            int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+
+            int RoomX = Rdn.Next(1, Width - RoomWidth - 1);
+
+            int RoomY = Rdn.Next(1, Height - RoomHeight - 1);
+
+            RectInt NewRoom = new RectInt(RoomX, RoomY, RoomWidth, RoomHeight);
+
+            bool Overlaps = false;
+
+            foreach (RectInt Room in Rooms)
+            {
+                if (NewRoom.Overlaps(Room))
                 {
-                    if (MapTile != null && FloorTile != null)
+                    Overlaps = true;
+
+                    break;
+                }
+            }
+
+            if (!Overlaps)
+            {
+                Rooms.Add(NewRoom);
+
+                // Carve out the room
+                for (int x = RoomX; x < RoomX + RoomWidth; x++)
+                {
+                    for (int y = RoomY; y < RoomY + RoomHeight; y++)
                     {
-                        MapTile.SetTile(Pos, FloorTile);
+                        Map[x, y] = 0; // 0 = floor
                     }
                 }
+            }
+        }
 
-                // Inicialização defensiva para evitar NullReferenceException no PlayMode
-                if (Map == null || Map.GetLength(0) != Width || Map.GetLength(1) != Height)
+        // Connect rooms with corridors
+        for (int i = 1; i < Rooms.Count; i++)
+        {
+            Vector2Int PrevCenter = new Vector2Int(Rooms[i - 1].x + Rooms[i - 1].width / 2,
+            Rooms[i - 1].y + Rooms[i - 1].height / 2);
+
+            Vector2Int CurrCenter = new Vector2Int(Rooms[i].x + Rooms[i].width / 2,
+            Rooms[i].y + Rooms[i].height / 2);
+
+            if (Rdn.Next(0, 2) == 0)
+            {
+                // Horizontal then vertical
+                CreateHorizontalCorridor(Map, PrevCenter.x, CurrCenter.x, PrevCenter.y);
+
+                CreateVerticalCorridor(Map, PrevCenter.y, CurrCenter.y, CurrCenter.x);
+            }
+
+            else
+            {
+                // Vertical then horizontal
+                CreateVerticalCorridor(Map, PrevCenter.y, CurrCenter.y, PrevCenter.x);
+
+                CreateHorizontalCorridor(Map, PrevCenter.x, CurrCenter.x, CurrCenter.y);
+            }
+        }
+
+        // Add grid walls dividing the map into 5 sections, but leave corridors open
+        for (int i = 1; i < 5; i++)
+        {
+            int WallX = i * Width / 5;
+
+            for (int y = 0; y < Height; y++)
+            {
+                if (Map[WallX, y] != 0) // only place wall if not already floor (corridor)
                 {
-                    Map = new int[Width, Height];
+                    Map[WallX, y] = 1; // vertical walls
                 }
+            }
+        }
 
-                if (Rooms == null)
+        for (int i = 1; i < 5; i++)
+        {
+            int WallY = i * Height / 5;
+
+            for (int x = 0; x < Width; x++)
+            {
+                if (Map[x, WallY] != 0) // only place wall if not already floor (corridor)
                 {
-                    Rooms = new List<RectInt>();
+                    Map[x, WallY] = 1; // horizontal walls
+                }
+            }
+        }
+
+        // Place tiles on the tilemaps
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                Vector3Int Position = new Vector3Int(x, y, 0);
+
+                if (Map[x, y] == 0)
+                {
+                    MapTile.SetTile(Position, FloorTile);
                 }
 
                 else
                 {
-                    Rooms.Clear();
-                }
-
-                if (Rdn == null)
-                {
-                    Rdn = new Random();
-                }
-
-                else
-                {
-                    if (WallTilemap != null && WallTile != null)
+                    if (WallTilemap != null)
                     {
-                        WallTilemap.SetTile(Pos, WallTile);
+                        WallTilemap.SetTile(Position, WallTile);
                     }
 
-                    else if (MapTile != null && WallTile != null)
+                    else
                     {
-                        MapTile.SetTile(Pos, WallTile);
+                        MapTile.SetTile(Position, WallTile);
                     }
                 }
             }
         }
 
         // Instantiate player in the center of the first room
-        if (!PlayerSpawned && PlayerPrefab != null && Rooms.Count > 0)
+        if (PlayerPrefab != null && Rooms.Count > 0)
         {
             Vector2Int PlayerSpawn = new Vector2Int(Rooms[0].x + Rooms[0].width / 2,
             Rooms[0].y + Rooms[0].height / 2);
 
-            Vector3 WorldPos = MapTile.CellToWorld(new Vector3Int(PlayerSpawn.x, PlayerSpawn.y, 0));
+            Vector3 WorldPosition = MapTile.CellToWorld(new Vector3Int(PlayerSpawn.x,
+            PlayerSpawn.y, 0));
 
-            Instantiate(PlayerPrefab, WorldPos, Quaternion.identity);
-            
-            PlayerSpawned = true;
-        }            
+            Instantiate(PlayerPrefab, WorldPosition, Quaternion.identity);
+        }
 
         // Instantiate door in the center of the last room
-        if (!DoorSpawned && DoorPrefab != null && Rooms.Count > 0)
+        if (DoorPrefab != null && Rooms.Count > 0)
         {
             RectInt LastRoom = Rooms[Rooms.Count - 1];
 
             Vector2Int DoorSpawn = new Vector2Int(LastRoom.x + LastRoom.width / 2,
             LastRoom.y + LastRoom.height / 2);
 
-            Vector3 WorldPos = MapTile.CellToWorld(new Vector3Int(DoorSpawn.x, DoorSpawn.y, 0));
+            Vector3 WorldPosition = MapTile.CellToWorld(new Vector3Int(DoorSpawn.x,
+            DoorSpawn.y, 0));
 
-            Instantiate(DoorPrefab, WorldPos, Quaternion.identity);
-            
-            DoorSpawned = true;
+            Instantiate(DoorPrefab, WorldPosition, Quaternion.identity);
         }
 
         // Instantiate bed in the center of the second room
-        if (!BedSpawned && BedPrefab != null && Rooms.Count > 1)
+        if (BedPrefab != null && Rooms.Count > 1)
         {
             RectInt SecondRoom = Rooms[1];
 
             Vector2Int BedSpawn = new Vector2Int(SecondRoom.x + SecondRoom.width / 2,
             SecondRoom.y + SecondRoom.height / 2);
 
-            Vector3 WorldPos = MapTile.CellToWorld(new Vector3Int(BedSpawn.x, BedSpawn.y, 0));
+            Vector3 WorldPosition = MapTile.CellToWorld(new Vector3Int(BedSpawn.x,
+            BedSpawn.y, 0));
 
-            Instantiate(BedPrefab, WorldPos, Quaternion.identity);
-
-            BedSpawned = true;
+            Instantiate(BedPrefab, WorldPosition, Quaternion.identity);
         }
-
-        if (EnemySpawn != null)
-        {
-            EnemySpawn.ClearEnemies();
-
-            EnemySpawn.SpawnEnemies(Rooms, Map, MapTile, Seed);
-        }
-        
-        // Spawn aleatório de chave em uma sala aleatória (exceto player, cama e porta)
-        if (!KeySpawned && KeyPrefab != null && Rooms != null && Rooms.Count > 3 && MapTile != null)
-        {
-            int Min = 2;
-
-            int Max = Rooms.Count - 1;
-            
-            if (Max > Min)
-            {
-                int KeyRoomIndex = Rdn.Next(Min, Max);
-            
-                if (KeyRoomIndex >= 0 && KeyRoomIndex < Rooms.Count)
-                {
-                    RectInt KeyRoom = Rooms[KeyRoomIndex];
-
-                    Vector2Int KeySpawn = new Vector2Int(KeyRoom.x + KeyRoom.width / 2,
-                    KeyRoom.y + KeyRoom.height / 2);
-
-                    Vector3 KeyWorldPos = MapTile.CellToWorld(new Vector3Int(KeySpawn.x, KeySpawn.y, 0));
-
-                    Instantiate(KeyPrefab, KeyWorldPos, Quaternion.identity);
-            
-                    KeySpawned = true;
-                }
-            }
-        }
-
-        yield return new WaitForSeconds(5.0f);
     }
 
-    // Corridors (opcional, pode ser expandido)
-    void CreateHorizontalCorridor(int[,] Map, int xStart, int xEnd, int y)
+    void CreateHorizontalCorridor(int[,] Map, int XStart, int XEnd, int Y)
     {
-        int Start = Mathf.Min(xStart, xEnd);
+        int Start = Mathf.Min(XStart, XEnd);
 
-        int End = Mathf.Max(xStart, xEnd);
-        
-        for (int X = Start; X <= End; X++)
+        int End = Mathf.Max(XStart, XEnd);
+
+        for (int x = Start; x <= End; x++)
         {
-            for (int Dy = 0; Dy < 2; Dy++)
+            for (int dy = 0; dy < 2; dy++)
             {
-                int YPos = y + Dy;
+                int yPos = Y + dy;
 
-                if (YPos < Height)
+                if (yPos < Height)
                 {
-                    Map[X, YPos] = 0;
+                    Map[x, yPos] = 0;
                 }
             }
         }
     }
 
-    void CreateVerticalCorridor(int[,] Map, int yStart, int yEnd, int x)
+    void CreateVerticalCorridor(int[,] Map, int YStart, int YEnd, int X)
     {
-        int Start = Mathf.Min(yStart, yEnd);
-        
-        int End = Mathf.Max(yStart, yEnd);
+        int Start = Mathf.Min(YStart, YEnd);
 
-        for (int Y = Start; Y <= End; Y++)
+        int End = Mathf.Max(YStart, YEnd);
+
+        for (int y = Start; y <= End; y++)
         {
-            for (int Dx = 0; Dx < 2; Dx++)
+            for (int dx = 0; dx < 2; dx++)
             {
-                int XPos = x + Dx;
+                int xPos = X + dx;
 
-                if (XPos < Width)
+                if (xPos < Width)
                 {
-                    Map[XPos, Y] = 0;
+                    Map[xPos, y] = 0;
                 }
             }
         }
