@@ -66,13 +66,13 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         {
             GenerationTimer = 0.0f;
 
-            PlayerSpawned = false;
+            PlayerSpawned = true;
             
-            DoorSpawned = false;
+            DoorSpawned = true;
             
-            BedSpawned = false;
+            BedSpawned = true;
             
-            KeySpawned = false;
+            KeySpawned = true;
             
             StartCoroutine(GenerateDungeon());
         }
