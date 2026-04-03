@@ -130,6 +130,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8456638313001164411
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -175,6 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 1202170153, guid: abb330dbb78556844939186972e993d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -184,7 +186,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &8552138288884773013
 Animator:
@@ -344,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffbd6f4549c35c4d8536a759154b2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MissionRoom08: {fileID: 0}
+  HudCutscene: {fileID: 0}
 --- !u!114 &707497324712531052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e28cb6d6fefe3a4ead2ce6a9296ae2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyPickupRoom20
+  HudCutscene: {fileID: 0}
 --- !u!1 &8833773867406682396
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,8 +438,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 34
-  orthographic: 1
+  field of view: 16
+  orthographic: 0
   orthographic size: 2
   m_Depth: -1
   m_CullingMask:
