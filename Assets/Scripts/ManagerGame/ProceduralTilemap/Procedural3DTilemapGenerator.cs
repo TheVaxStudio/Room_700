@@ -19,22 +19,29 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
     
     public GameObject KeyPrefab;
 
-    [Header("Generation Settings")]
-    int Width = 50;
+    [Header("Terrain Settings")]
+    public Terrain SourceTerrain;
 
-    int Height = 50;
-
-    int Depth = 3; // Number of floors
-
-    int MinRoomSize = 5;
-
-    int MaxRoomSize = 20;
-
-    int MaxRooms = 50;
-
-    bool UseRandomSeed = true;
+    public bool UseMinecraftTerrain = false;
     
-    int Seed = 0;
+    public float BlockHeight = 1.0f; // altura de cada bloco no eixo Y
+
+    [Header("Generation Settings")]
+    public int Width = 50;
+
+    public int Height = 50;
+
+    public int Depth = 3; // Number of floors
+
+    public int MinRoomSize = 5;
+
+    public int MaxRoomSize = 20;
+
+    public int MaxRooms = 50;
+
+    public bool UseRandomSeed = true;
+    
+    public int Seed = 0;
 
     Random Rdn;
     
@@ -184,9 +191,15 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
         {
             for (int Y = 0; Y < Height; Y++)
             {
+                float BaseHeight = GetTerrainHeight(X, Y);
+
                 for (int Z = 0; Z < Depth; Z++)
                 {
-                    Vector3 Position = new Vector3(X, Z * 2, Y); // Adjust Y for floor height
+                    float WorldY = BaseHeight + Z * BlockHeight;
+
+                    Vector3 Position = new Vector3(X + (SourceTerrain ?
+                    SourceTerrain.transform.position.x : 0.0f),
+                    WorldY, Y + (SourceTerrain ? SourceTerrain.transform.position.z : 0.0f));
 
                     if (Map[X, Y, Z] == 0)
                     {
@@ -195,12 +208,11 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
                             Instantiate(FloorPrefab, Position, Quaternion.identity);
                         }
                     }
-
                     else
                     {
                         if (WallPrefab != null)
                         {
-                            // Rotate wall to face along Z axis
+                            // Orient wall along Z axis
                             Instantiate(WallPrefab, Position, Quaternion.Euler(0, 90, 0));
                         }
                     }
@@ -213,7 +225,12 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
         {
             var FirstRoom = Rooms[0];
 
-            Vector3 PlayerPos = new Vector3(FirstRoom.Center.x, FirstRoom.Floor * 2, FirstRoom.Center.y);
+            float PlayerBaseHeight = GetTerrainHeight(FirstRoom.Center.x, FirstRoom.Center.y);
+            
+            Vector3 PlayerPos = new Vector3(FirstRoom.Center.x + (SourceTerrain ?
+            SourceTerrain.transform.position.x : 0.0f),
+            PlayerBaseHeight + FirstRoom.Floor * BlockHeight, FirstRoom.Center.y +
+            (SourceTerrain ? SourceTerrain.transform.position.z : 0.0f));
             
             Instantiate(PlayerPrefab, PlayerPos, Quaternion.identity);
         }
@@ -221,8 +238,13 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
         if (DoorPrefab != null && Rooms.Count > 0)
         {
             var LastRoom = Rooms[Rooms.Count - 1];
-
-            Vector3 DoorPos = new Vector3(LastRoom.Center.x, LastRoom.Floor * 2, LastRoom.Center.y);
+            
+            float DoorBaseHeight = GetTerrainHeight(LastRoom.Center.x, LastRoom.Center.y);
+            
+            Vector3 DoorPos = new Vector3(LastRoom.Center.x + (SourceTerrain ?
+            SourceTerrain.transform.position.x : 0.0f),
+            DoorBaseHeight + LastRoom.Floor * BlockHeight,
+            LastRoom.Center.y + (SourceTerrain ? SourceTerrain.transform.position.z : 0.0f));
             
             Instantiate(DoorPrefab, DoorPos, Quaternion.identity);
         }
@@ -231,7 +253,11 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
         {
             var SecondRoom = Rooms[1];
 
-            Vector3 BedPos = new Vector3(SecondRoom.Center.x, SecondRoom.Floor * 2, SecondRoom.Center.y);
+            float BedBaseHeight = GetTerrainHeight(SecondRoom.Center.x, SecondRoom.Center.y);
+            
+            Vector3 BedPos = new Vector3(SecondRoom.Center.x + (SourceTerrain ?
+            SourceTerrain.transform.position.x : 0.0f), BedBaseHeight + SecondRoom.Floor * BlockHeight,
+            SecondRoom.Center.y + (SourceTerrain ? SourceTerrain.transform.position.z : 0.0f));
             
             Instantiate(BedPrefab, BedPos, Quaternion.identity);
         }
@@ -241,13 +267,31 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
             int KeyIndex = Rdn.Next(2, Rooms.Count - 1);
 
             var KeyRoom = Rooms[KeyIndex];
-
-            Vector3 KeyPos = new Vector3(KeyRoom.Center.x, KeyRoom.Floor * 2, KeyRoom.Center.y);
+            
+            float KeyBaseHeight = GetTerrainHeight(KeyRoom.Center.x, KeyRoom.Center.y);
+            
+            Vector3 KeyPos = new Vector3(KeyRoom.Center.x + (SourceTerrain ? 
+            SourceTerrain.transform.position.x : 0.0f),
+            KeyBaseHeight + KeyRoom.Floor * BlockHeight,
+            KeyRoom.Center.y + (SourceTerrain ? SourceTerrain.transform.position.z : 0.0f));
 
             Instantiate(KeyPrefab, KeyPos, Quaternion.identity);
             
             KeySpawned = true;
         }
+    }
+
+    float GetTerrainHeight(int x, int y)
+    {
+        if (!UseMinecraftTerrain || SourceTerrain == null)
+        {
+            return 0.0f;
+        }
+
+        var worldPos = new Vector3(x + SourceTerrain.transform.position.x, 0.0f, y +
+        SourceTerrain.transform.position.z);
+        
+        return SourceTerrain.SampleHeight(worldPos) + SourceTerrain.transform.position.y;
     }
 
     void CreateHorizontalCorridor3D(int[,,] Map, int XStart, int XEnd, int Y, int Floor)

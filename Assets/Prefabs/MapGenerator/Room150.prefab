@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Procedural3DTilemapGenerator
   FloorPrefab: {fileID: 2350098882405641365, guid: 358842a9bb98b0e499b7699178557908, type: 3}
-  WallPrefab: {fileID: 4815251270761980214, guid: 1ece671a1199cb944bb72d53d13aa321, type: 3}
+  WallPrefab: {fileID: 3489979494123372309, guid: a1995e6437800344eb78f0abe2ffb147, type: 3}
   PlayerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
   DoorPrefab: {fileID: 930906879691130636, guid: 3d742bf2df9c93a44826a32330e0ef50, type: 3}
   BedPrefab: {fileID: 4815204354568481180, guid: 209c2d2b4fc7f2a4e9501d968b302635, type: 3}
