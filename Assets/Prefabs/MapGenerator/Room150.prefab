@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 819979492000276888}
-  - component: {fileID: 1772444356857833184}
+  - component: {fileID: 1711183396790123317}
   m_Layer: 0
   m_Name: Room150
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1772444356857833184
+--- !u!114 &1711183396790123317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,16 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3970229626198229936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9817af99672da24d9f48d554fb2eab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 60e79db700f64be41b4307ee2aeb6eb4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProceduralTilemapGenerator
-  MapTile: {fileID: 0}
-  WallTilemap: {fileID: 0}
-  FloorTile: {fileID: 11400000, guid: 2909be5ede4c8a4449fec8c67a778fcb, type: 2}
-  WallTile: {fileID: 11400000, guid: 8d6e4cf4a2076b549a344d1fecf64472, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::Procedural3DTilemapGenerator
+  FloorPrefab: {fileID: 2350098882405641365, guid: 358842a9bb98b0e499b7699178557908, type: 3}
+  WallPrefab: {fileID: 4815251270761980214, guid: 1ece671a1199cb944bb72d53d13aa321, type: 3}
   PlayerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
-  DoorPrefab: {fileID: 9195758322941129950, guid: e0e9c63ddbc200247bd4ee5f0eacc4fe, type: 3}
+  DoorPrefab: {fileID: 930906879691130636, guid: 3d742bf2df9c93a44826a32330e0ef50, type: 3}
   BedPrefab: {fileID: 4815204354568481180, guid: 209c2d2b4fc7f2a4e9501d968b302635, type: 3}
   KeyPrefab: {fileID: 5024492031455265544, guid: dad16f1080b53f2429bd1bec79d7fc81, type: 3}
-  EnemySpawn: {fileID: 1790538882086936909, guid: b324498888ddb194a9502a2d00ad0945, type: 3}
-  Player: {fileID: 6252699890257962969, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
