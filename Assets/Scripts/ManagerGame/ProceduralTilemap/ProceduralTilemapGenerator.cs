@@ -58,11 +58,6 @@ public class ProceduralTilemapGenerator : MonoBehaviour
     
     List<RectInt> Rooms;
 
-    void Start()
-    {
-        StartCoroutine(GenerateDungeon());
-    }
-
     void Update()
     {
         GenerationTimer += Time.deltaTime;
