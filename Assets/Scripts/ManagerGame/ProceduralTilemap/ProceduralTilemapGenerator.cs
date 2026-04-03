@@ -188,25 +188,30 @@ public class ProceduralTilemapGenerator : MonoBehaviour
         }
         
         // Spawn aleatório de chave em uma sala aleatória (exceto player, cama e porta)
-        if (!KeySpawned && KeyPrefab != null && Rooms.Count > 3)
+        if (!KeySpawned && KeyPrefab != null && Rooms != null && Rooms.Count > 3 && MapTile != null)
         {
-            // Evita as salas 0 (player), 1 (cama) e última (porta)
             int Min = 2;
 
             int Max = Rooms.Count - 1;
-
-            int KeyRoomIndex = Rdn.Next(Min, Max);
-
-            RectInt KeyRoom = Rooms[KeyRoomIndex];
-
-            Vector2Int KeySpawn = new Vector2Int(KeyRoom.x + KeyRoom.width / 2,
-            KeyRoom.y + KeyRoom.height / 2);
-
-            Vector3 KeyWorldPos = MapTile.CellToWorld(new Vector3Int(KeySpawn.x, KeySpawn.y, 0));
-
-            Instantiate(KeyPrefab, KeyWorldPos, Quaternion.identity);
             
-            KeySpawned = true;
+            if (Max > Min)
+            {
+                int KeyRoomIndex = Rdn.Next(Min, Max);
+            
+                if (KeyRoomIndex >= 0 && KeyRoomIndex < Rooms.Count)
+                {
+                    RectInt KeyRoom = Rooms[KeyRoomIndex];
+
+                    Vector2Int KeySpawn = new Vector2Int(KeyRoom.x + KeyRoom.width / 2,
+                    KeyRoom.y + KeyRoom.height / 2);
+
+                    Vector3 KeyWorldPos = MapTile.CellToWorld(new Vector3Int(KeySpawn.x, KeySpawn.y, 0));
+
+                    Instantiate(KeyPrefab, KeyWorldPos, Quaternion.identity);
+            
+                    KeySpawned = true;
+                }
+            }
         }
 
         yield return new WaitForSeconds(5.0f);
