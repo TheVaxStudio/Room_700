@@ -1,0 +1,301 @@
+using System.Collections.Generic;
+using Random = System.Random;
+using UnityEngine;
+using UnityRandom = UnityEngine.Random;
+
+public class Procedural3DTilemapGenerator : MonoBehaviour
+{
+    [Header("Tile Prefabs")]
+    public GameObject FloorPrefab; // Prefab with SpriteRenderer for floor tile
+
+    public GameObject WallPrefab;  // Prefab with SpriteRenderer for wall tile
+
+    [Header("Object Prefabs")]
+    public GameObject PlayerPrefab;
+
+    public GameObject DoorPrefab;
+
+    public GameObject BedPrefab;
+    
+    public GameObject KeyPrefab;
+
+    [Header("Generation Settings")]
+    int Width = 50;
+
+    int Height = 50;
+
+    int Depth = 3; // Number of floors
+
+    int MinRoomSize = 5;
+
+    int MaxRoomSize = 20;
+
+    int MaxRooms = 50;
+
+    bool UseRandomSeed = true;
+    
+    int Seed = 0;
+
+    Random Rdn;
+    
+    bool KeySpawned;
+
+    void Start()
+    {
+        if (UseRandomSeed)
+        {
+            Seed = UnityRandom.Range(0, int.MaxValue);
+        }
+
+        Rdn = new Random(Seed);
+
+        Generate3DDungeon();
+    }
+
+    void Generate3DDungeon()
+    {
+        // Create a 3D array to represent the map: 0 = floor, 1 = wall
+        int[,,] Map = new int[Width, Height, Depth];
+
+        // Initialize with walls
+        for (int X = 0; X < Width; X++)
+        {
+            for (int Y = 0; Y < Height; Y++)
+            {
+                for (int Z = 0; Z < Depth; Z++)
+                {
+                    Map[X, Y, Z] = 1; // wall
+                }
+            }
+        }
+
+        // Generate rooms on each floor
+        List<Room3D> Rooms = new List<Room3D>();
+
+        for (int Floor = 0; Floor < Depth; Floor++)
+        {
+            for (int I = 0; I < MaxRooms / Depth; I++)
+            {
+                int RoomWidth = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+
+                int RoomHeight = Rdn.Next(MinRoomSize, MaxRoomSize + 1);
+
+                int RoomX = Rdn.Next(1, Width - RoomWidth - 1);
+                
+                int RoomY = Rdn.Next(1, Height - RoomHeight - 1);
+
+                Room3D NewRoom = new Room3D(RoomX, RoomY, Floor, RoomWidth, RoomHeight);
+
+                bool Overlaps = false;
+                
+                foreach (Room3D Room in Rooms)
+                {
+                    if (Room.Floor == Floor && NewRoom.Overlaps(Room))
+                    {
+                        Overlaps = true;
+                        
+                        break;
+                    }
+                }
+
+                if (!Overlaps)
+                {
+                    Rooms.Add(NewRoom);
+
+                    // Carve out the room
+                    for (int x = RoomX; x < RoomX + RoomWidth; x++)
+                    {
+                        for (int y = RoomY; y < RoomY + RoomHeight; y++)
+                        {
+                            Map[x, y, Floor] = 0; // floor
+                        }
+                    }
+                }
+            }
+        }
+
+        // Connect rooms with corridors (simplified, horizontal/vertical on same floor)
+        // For simplicity, connect rooms on the same floor
+        var RoomsByFloor = new Dictionary<int, List<Room3D>>();
+
+        foreach (var Room in Rooms)
+        {
+            if (!RoomsByFloor.ContainsKey(Room.Floor))
+            {
+                RoomsByFloor[Room.Floor] = new List<Room3D>();
+            }
+
+            RoomsByFloor[Room.Floor].Add(Room);
+        }
+
+        foreach (var FloorRooms in RoomsByFloor.Values)
+        {
+            for (int i = 1; i < FloorRooms.Count; i++)
+            {
+                Vector2Int PrevCenter = FloorRooms[i - 1].Center;
+
+                Vector2Int CurrCenter = FloorRooms[i].Center;
+
+                if (Rdn.Next(0, 2) == 0)
+                {
+                    CreateHorizontalCorridor3D(Map, PrevCenter.x, CurrCenter.x,
+                    PrevCenter.y, FloorRooms[i - 1].Floor);
+                    
+                    CreateVerticalCorridor3D(Map, PrevCenter.y, CurrCenter.y,
+                    CurrCenter.x, FloorRooms[i - 1].Floor);
+                }
+
+                else
+                {
+                    CreateVerticalCorridor3D(Map, PrevCenter.y, CurrCenter.y,
+                    PrevCenter.x, FloorRooms[i - 1].Floor);
+                    
+                    CreateHorizontalCorridor3D(Map, PrevCenter.x, CurrCenter.x,
+                    CurrCenter.y, FloorRooms[i - 1].Floor);
+                }
+            }
+        }
+
+        // Add stairs between floors (simple: connect centers of rooms on adjacent floors)
+        for (int Floor = 0; Floor < Depth - 1; Floor++)
+        {
+            if (RoomsByFloor.ContainsKey(Floor) && RoomsByFloor.ContainsKey(Floor + 1))
+            {
+                var Room1 = RoomsByFloor[Floor][0];
+
+                var Room2 = RoomsByFloor[Floor + 1][0];
+
+                Vector2Int center1 = Room1.Center;
+                
+                Vector2Int center2 = Room2.Center;
+
+                // Create a vertical corridor (stair)
+                for (int y = Mathf.Min(center1.y, center2.y); y <= Mathf.Max(center1.y, center2.y); y++)
+                {
+                    Map[center1.x, y, Floor] = 0;
+                    
+                    Map[center2.x, y, Floor + 1] = 0;
+                }
+            }
+        }
+
+        // Instantiate tiles
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                for (int z = 0; z < Depth; z++)
+                {
+                    Vector3 Position = new Vector3(x, z * 2, y); // Adjust Y for floor height
+
+                    if (Map[x, y, z] == 0)
+                    {
+                        if (FloorPrefab != null)
+                        {
+                            Instantiate(FloorPrefab, Position, Quaternion.identity);
+                        }
+                    }
+
+                    else
+                    {
+                        if (WallPrefab != null)
+                        {
+                            Instantiate(WallPrefab, Position, Quaternion.identity);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Instantiate objects (simplified, on first floor)
+        if (PlayerPrefab != null && Rooms.Count > 0)
+        {
+            var FirstRoom = Rooms[0];
+
+            Vector3 PlayerPos = new Vector3(FirstRoom.Center.x, FirstRoom.Floor * 2, FirstRoom.Center.y);
+            
+            Instantiate(PlayerPrefab, PlayerPos, Quaternion.identity);
+        }
+
+        if (DoorPrefab != null && Rooms.Count > 0)
+        {
+            var LastRoom = Rooms[Rooms.Count - 1];
+
+            Vector3 DoorPos = new Vector3(LastRoom.Center.x, LastRoom.Floor * 2, LastRoom.Center.y);
+            
+            Instantiate(DoorPrefab, DoorPos, Quaternion.identity);
+        }
+
+        if (BedPrefab != null && Rooms.Count > 1)
+        {
+            var SecondRoom = Rooms[1];
+
+            Vector3 BedPos = new Vector3(SecondRoom.Center.x, SecondRoom.Floor * 2, SecondRoom.Center.y);
+            
+            Instantiate(BedPrefab, BedPos, Quaternion.identity);
+        }
+
+        if (!KeySpawned && KeyPrefab != null && Rooms.Count > 3)
+        {
+            int KeyIndex = Rdn.Next(2, Rooms.Count - 1);
+
+            var KeyRoom = Rooms[KeyIndex];
+
+            Vector3 KeyPos = new Vector3(KeyRoom.Center.x, KeyRoom.Floor * 2, KeyRoom.Center.y);
+
+            Instantiate(KeyPrefab, KeyPos, Quaternion.identity);
+            
+            KeySpawned = true;
+        }
+    }
+
+    void CreateHorizontalCorridor3D(int[,,] Map, int XStart, int XEnd, int Y, int Floor)
+    {
+        int Start = Mathf.Min(XStart, XEnd);
+
+        int End = Mathf.Max(XStart, XEnd);
+        
+        for (int x = Start; x <= End; x++)
+        {
+            Map[x, Y, Floor] = 0;
+        }
+    }
+
+    void CreateVerticalCorridor3D(int[,,] Map, int YStart, int YEnd, int X, int Floor)
+    {
+        int Start = Mathf.Min(YStart, YEnd);
+
+        int End = Mathf.Max(YStart, YEnd);
+        
+        for (int y = Start; y <= End; y++)
+        {
+            Map[X, y, Floor] = 0;
+        }
+    }
+}
+
+public class Room3D
+{
+    public int X, Y, Floor, Width, Height;
+
+    public Room3D(int X, int Y, int Floor, int Width, int Height)
+    {
+        this.X = X;
+
+        this.Y = Y;
+
+        this.Floor = Floor;
+
+        this.Width = Width;
+        
+        this.Height = Height;
+    }
+
+    public Vector2Int Center => new Vector2Int(X + Width / 2, Y + Height / 2);
+
+    public bool Overlaps(Room3D other)
+    {
+        return !(X + Width < other.X || other.X + other.Width < X ||
+        Y + Height < other.Y || other.Y + other.Height < Y);
+    }
+}
