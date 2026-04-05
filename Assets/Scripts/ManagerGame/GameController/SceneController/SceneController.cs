@@ -10,16 +10,6 @@ public class SceneController : MonoBehaviour
 
     bool StartedCoroutine = false;
 
-    void Update()
-    {
-        if (!StartedCoroutine)
-        {
-            StartedCoroutine = true;
-
-            StartCoroutine(ChangeSceneAfterTime());
-        }
-    }
-
     IEnumerator ChangeSceneAfterTime()
     {
         yield return new WaitForSeconds(TimeToChangeScene);

@@ -6,15 +6,7 @@ public class MissionRoom01 : MonoBehaviour
 {
     public TMP_Text QuestRoom01;
 
-    void OnTriggerEnter2D(Collider2D Player)
-    {
-        if (Player.CompareTag("Player"))
-        {
-            StartCoroutine(DisplayMissionRoom01());
-        }
-	}
-
-	IEnumerator DisplayMissionRoom01()
+    IEnumerator DisplayMissionRoom01()
 	{
 		yield return new WaitForSeconds(6.5f);
 

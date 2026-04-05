@@ -48,38 +48,6 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     Random Rdn;
 
-    void Awake()
-    {
-        // Add colliders to WallTilemap
-        if (WallTilemap != null)
-        {
-            if (WallTilemap.GetComponent<TilemapCollider2D>() == null)
-            {
-                WallTilemap.gameObject.AddComponent<TilemapCollider2D>();
-            }
-
-            if (WallTilemap.GetComponent<CompositeCollider2D>() == null)
-            {
-                CompositeCollider2D Composite =
-                WallTilemap.gameObject.AddComponent<CompositeCollider2D>();
-
-                Composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
-            }
-        }
-    }
-
-    void Start()
-    {
-        if (UseRandomSeed)
-        {
-            Seed = UnityRandom.Range(0, int.MaxValue);
-        }
-
-        Rdn = new Random(Seed);
-
-        GenerateDungeon();
-    }
-
     void GenerateDungeon()
     {
         // Clear the tilemaps

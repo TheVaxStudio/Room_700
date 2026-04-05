@@ -33,25 +33,6 @@ public class StartGame : MonoBehaviour
 
     Language CurrentLanguage = Language.PTBR;
 
-    void Start()
-    {
-        StartButton.onClick.AddListener(StartGameScene);
-
-        QuitButton.onClick.AddListener(QuitGame);
-        
-        LanguageButton.onClick.AddListener(ChangeLanguage);
-
-        ApplyLanguage();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(R))
-        {
-            StartGameScene();
-        }
-    }
-
     public void StartGameScene()
     {
         SceneManager.LoadScene(SceneName);

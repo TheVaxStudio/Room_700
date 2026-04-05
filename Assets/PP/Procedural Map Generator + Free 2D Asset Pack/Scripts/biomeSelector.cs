@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
 using Tile.Utilities;
 
 public class biomeSelector : MonoBehaviour
@@ -21,9 +16,6 @@ public class biomeSelector : MonoBehaviour
     [Header("AUTOMATIC")]
     //Script tileScript
     public tileScript tileScript;
-
-    //tileScript of the otherTile
-    [SerializeField] tileScript otherTileScript;
 
     //Gameobject of the child
     public GameObject tileChild;

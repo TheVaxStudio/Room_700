@@ -18,13 +18,9 @@ namespace SoftKitty.WSFL
         public const string CONFIG_NAME = "com.SoftKitty.Localization.settings";
 
         static LocalizationSettings instance;
-        #endregion
 
+        #endregion
         #region Methods
-        void OnEnable()
-        {
-            if (instance == null) instance = this;
-        }
 
         public static string GetLocalizationPath()
         {

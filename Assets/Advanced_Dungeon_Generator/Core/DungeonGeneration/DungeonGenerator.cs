@@ -90,36 +90,7 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
-
     #endregion
-
-    private void Start()
-    {
-        // DungeonStart
-        if (generateDungeonAtStart)
-            DungeonStartTrigger();
-    }
-
-    private void Update()
-    {
-        if(mainThreadQueue.Count > 0)
-        {
-            Action callback;
-            if(mainThreadQueue.TryDequeue(out callback))
-                callback();
-        }
-    }
 
 
 

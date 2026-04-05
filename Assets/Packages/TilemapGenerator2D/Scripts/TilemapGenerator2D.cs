@@ -188,92 +188,6 @@ namespace DevelopersHub.ProceduralTilemapGenerator2D
                 cell = new int3(x, y, z);
             }
         }
-        
-        private void Awake()
-        {
-            SetNoiseData();
-            if (_generateOnAwake || type == Type.Infinite)
-            {
-                Generate(GenerateType.Immediate, ClearType.ClearPreviousImmediate);
-            }
-        }
-
-        private void Start()
-        {
-
-        }
-        
-        private void Update()
-        {
-            if (tilemaps != null && tilemaps.Count == 4)
-            {
-                if (type == Type.Infinite && infiniteTarget != null)
-                {
-                    Vector3Int currentCell = tilemaps[0].tilemap.WorldToCell(infiniteTarget.position);
-                    if (Vector3.Distance(currentCell, lastCell) >= regenerateDistance)
-                    {
-                        if (generationTimer <= 0)
-                        {
-                            generationTimer = generationPeriod;
-                            Generate(GenerateType.Async, ClearType.ClearPreviousAsync);
-                        }
-                        else
-                        {
-                            generationTimer -= Time.deltaTime;
-                        }
-                    }
-                }
-                
-                int remained = placeTilesPerFrame;
-                int share = Mathf.RoundToInt(remained * 0.1f);
-                
-                if (remained > 0 && tilemaps[1].toPlace.Count > 0)
-                {
-                    int count = PlaceTilesForTilemap(1, share);
-                    remained -= count;
-                }
-                if (remained > 0 && tilemaps[2].toPlace.Count > 0)
-                {
-                    int count = PlaceTilesForTilemap(2, share);
-                    remained -= count;
-                }
-                if (remained > 0 && tilemaps[3].toPlace.Count > 0)
-                {
-                    int count = PlaceTilesForTilemap(3, share);
-                    remained -= count;
-                }
-                if (remained > 0 && tilemaps[0].toPlace.Count > 0)
-                {
-                    PlaceTilesForTilemap(0, remained);
-                }
-                
-                remained = clearTilesPerFrame;
-                if (remained > 0 && tilemaps[1].toClear.Count > 0)
-                {
-                    int count = ClearTilesForTilemap(1, share);
-                    remained -= count;
-                }
-                if (remained > 0 && tilemaps[2].toClear.Count > 0)
-                {
-                    int count = ClearTilesForTilemap(2, share);
-                    remained -= count;
-                }
-                if (remained > 0 && tilemaps[3].toClear.Count > 0)
-                {
-                    int count = ClearTilesForTilemap(3, share);
-                    remained -= count;
-                }
-                if (remained > 0 && tilemaps[0].toClear.Count > 0)
-                {
-                    ClearTilesForTilemap(0, remained);
-                }
-            }
-        }
-
-        private void OnDestroy()
-        {
-            
-        }
 
         private int PlaceTilesForTilemap(int tilemap, int count)
         {
@@ -1692,22 +1606,12 @@ namespace DevelopersHub.ProceduralTilemapGenerator2D
             digits.Dispose();
             return false;
         }
-        
-        private static int GetLastDigit(int x)
-        {
-            return math.abs(x) % 10; // Ensures the result is between 0 and 9
-        }
-        
+
         private static bool IsEven(int number)
         {
             return math.abs(number) % 2 == 0;
         }
 
-        private static bool IsOdd(int number)
-        {
-            return math.abs(number) % 2 != 0;
-        }
-        
         private static int MapNumberBetween0And9(int number, int block = 20)
         {
             // Determine the position within the current block of 20

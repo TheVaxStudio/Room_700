@@ -59,18 +59,6 @@ public class Procedural3DTilemapGenerator : MonoBehaviour
     
     bool KeySpawned;
 
-    void Start()
-    {
-        if (UseRandomSeed)
-        {
-            Seed = UnityRandom.Range(0, int.MaxValue);
-        }
-
-        Rdn = new Random(Seed);
-
-        Generate3DDungeon();
-    }
-
     void Generate3DDungeon()
     {
         // Create a 3D array to represent the map: 0 = floor, 1 = wall

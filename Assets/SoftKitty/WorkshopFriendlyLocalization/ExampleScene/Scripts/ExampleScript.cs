@@ -13,24 +13,8 @@ namespace SoftKitty.WSFL
         public RectTransform DropDownRoot;
         private string[] Languages;
         private Dropdown LanguageDropDown;
+
         #endregion
-
-        void Awake()
-        {
-            //Initialize the Localization core script by reading Localization files from the path we set, return the Languages names list. This must be called in the first scene of your game.
-            Languages = Localization.ReadLocalizationFiles(LocalizationSettings.GetLocalizationPath());
-
-            List<Dropdown.OptionData> _dropDownData = new List<Dropdown.OptionData>();
-            for (int i = 0; i < Languages.Length; i++)
-            {
-                _dropDownData.Add(new Dropdown.OptionData() { text = Languages[i].Replace(".txt", "").Replace("_", " ") });
-            }
-            GameObject _dropDown = Instantiate(Resources.Load<GameObject>("WorkshopFriendlyLocalization/LanguageDropDown"), DropDownRoot);
-            _dropDown.transform.localPosition = Vector3.zero;
-            LanguageDropDown = _dropDown.GetComponent<Dropdown>();
-            LanguageDropDown.options = _dropDownData;
-            LanguageDropDown.onValueChanged.AddListener(delegate { OnDropDownChange(); });
-        }
 
         public void OnDropDownChange()
         {

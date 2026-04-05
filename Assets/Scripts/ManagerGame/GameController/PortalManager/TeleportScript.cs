@@ -39,20 +39,4 @@ public class TeleportScript : MonoBehaviour
             Teleported = true;
         }
     }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.CompareTag("Player"))
-        {
-            Teleport(player);
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collider)
-    {   
-        if (collider.CompareTag("Player"))
-        {
-            Teleported = false;
-        }
-    }
 }

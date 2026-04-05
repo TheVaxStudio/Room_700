@@ -37,63 +37,6 @@ public class NPCMovement : MonoBehaviour
     
     bool UpdatingFlip;
 
-    void Awake()
-    {
-        Rb = GetComponent<Rigidbody2D>();
-        
-        Anim = GetComponent<Animator>();
-
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (Player == null)
-        {
-            GameObject P = GameObject.FindGameObjectWithTag("Player");
-
-            if (P) Player = P.transform;
-        }
-
-        if (Anim != null)
-        {
-            Anim.Rebind();
-
-            Anim.Update(0);
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (!Player)
-        {
-            Rb.linearVelocity = Vector2.zero;
-
-            Anim.SetBool("IsMoving", false);
-            
-            return;
-        }
-
-        FollowPlayer();
-
-        UpdateAnimator();
-        
-        UpdateFlip();
-    }
-
-    void Update()
-    {
-        AnimationTimer += Time.deltaTime;
-
-        while (AnimationTimer >= FrameTime)
-        {
-            UpdatingFlip = true;
-            
-            Anim.Update(FrameTime);
-
-            UpdatingFlip = false;
-
-            AnimationTimer -= FrameTime;
-        }
-    }
-
     void FollowPlayer()
     {
         Vector2 TargetPos = (Vector2)Player.position - Vector2.up * FollowDistance;

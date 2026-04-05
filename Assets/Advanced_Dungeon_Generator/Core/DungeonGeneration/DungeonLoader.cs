@@ -6,11 +6,6 @@ public class DungeonLoader : MonoBehaviour
 {
     public int site;
 
-    private void OnTriggerExit(Collider collider)
-    {
-        Charge(collider.transform.position);
-    }
-
     public void Charge(Vector3 colliderPos)
     {
         Vector3 playerDirection = colliderPos - transform.position;

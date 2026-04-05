@@ -14,35 +14,6 @@ public class TommyInteraction : MonoBehaviour
 
     private GameObject currentInteractable;
 
-    void Update()
-    {
-        // Raycast para detectar objetos interagíveis
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, InteractionRange, InteractableLayer))
-        {
-            if (hit.collider.gameObject != currentInteractable)
-            {
-                // Novo objeto interagível
-                currentInteractable = hit.collider.gameObject;
-                ShowInteractionPrompt(true);
-            }
-        }
-        else
-        {
-            // Nenhum objeto interagível
-            currentInteractable = null;
-            ShowInteractionPrompt(false);
-        }
-
-        // Interagir se tecla pressionada
-        if (Input.GetKeyDown(InteractKey) && currentInteractable != null)
-        {
-            Interact(currentInteractable);
-        }
-    }
-
     void ShowInteractionPrompt(bool show)
     {
         if (InteractionPrompt != null)

@@ -19,19 +19,6 @@ public class mapNavigation : MonoBehaviour
 
     [SerializeField] Camera camera;
 
-
-    void Update()
-    {
-        //Move camera
-        MoveCamera();
-
-        //Zoom logic
-        cameraDistance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-        cameraDistance = Mathf.Clamp(cameraDistance, cameraDistanceMin, cameraDistanceMax);
-
-        camera.orthographicSize = cameraDistance;
-    }
-
     private void MoveCamera()
     {
         if (Input.GetMouseButtonDown(2))

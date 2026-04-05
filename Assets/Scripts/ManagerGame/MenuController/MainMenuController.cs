@@ -21,35 +21,6 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
     [Header("Scene Name")]
     public string SceneToLoad = "Outside";
 
-    void Start()
-    {
-        if (InfoText != null && InfoText.tag == "Info")
-        {
-            InfoText.text = "Pressione R para começar";
-
-            if (Input.GetKeyDown(R))
-            {
-                LoadScene();
-            }
-        }
-
-        if (SettingsPanelText != null &&
-        SettingsPanelText.tag == "SettingsText")
-        {
-            SettingsPanelText.text = "Clique para abrir as configurações";
-
-            ToggleSettingsPanel();
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            LoadScene();
-        }
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         ToggleSettingsPanel();

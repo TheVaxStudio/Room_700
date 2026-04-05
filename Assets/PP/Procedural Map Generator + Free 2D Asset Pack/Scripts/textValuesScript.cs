@@ -9,8 +9,6 @@ public class textValuesScript : MonoBehaviour
     [Header("DON'T TOUCH")]
     [SerializeField] private mapGenerator mapGenerator;
     [SerializeField] private valuesAdjusterScript valuesAdjusterScript;
-    [SerializeField] private GameObject UICanva;
-
     [Header("GRASS BIOME")]
     //Grass River
     [SerializeField] private TextMeshProUGUI grassBiomeRiverExtensionAmountText;
@@ -135,95 +133,5 @@ public class textValuesScript : MonoBehaviour
         desertScreen2.SetActive(true);
         forestIconSelected2.SetActive(false);
         desertIconSelected2.SetActive(true);
-    }
-
-    private void Update()
-    {
-        biomesAmount = (int)biomesAmountSlider.value;
-        mapGenerator.biomesAmount = biomesAmount;
-
-        //Update texts
-        sandWaterAmountText.text = valuesAdjusterScript.sandBiomesRiverSpawn.ToString();
-        sandPalmTreeAmountText.text = valuesAdjusterScript.sandBiomesPalmTreeSpawn.ToString();
-        sandRocksAmountText.text = valuesAdjusterScript.sandBiomesSandRocksSpawn.ToString();
-        sandCactusAmountText.text = valuesAdjusterScript.sandBiomesCactusSpawn.ToString();
-
-        grassWaterAmountText.text = valuesAdjusterScript.grassBiomesRiverSpawn.ToString();
-        grassForestAmountText.text = valuesAdjusterScript.grassBiomesForestSpawn.ToString();
-        grassRocksAmountText.text = valuesAdjusterScript.grassBiomesRocksSpawn.ToString();
-        grassFlowersAmountText.text = valuesAdjusterScript.grassBiomesFlowersSpawn.ToString();
-
-
-        //Biomes Amount
-        biomesAmountText.text = mapGenerator.biomesAmount.ToString();
-
-        //GRASS
-
-        //Grass River
-        grassBiomeRiverExtensionAmount = (int)grassBiomeRiverExtensionSlider.value;
-        grassBiomeRiverExtensionAmountText.text = grassBiomeRiverExtensionAmount.ToString();
-        valuesAdjusterScript.grassBiomesRiverExpansionPercentage = grassBiomeRiverExtensionAmount;
-
-        grassBiomeRiverAmount = (int)grassBiomeRiverAmountSlider.value;
-        valuesAdjusterScript.grassBiomesRiverSpawn = grassBiomeRiverAmount;
-
-
-        //Forest
-        grassBiomeForestExtensionAmount = (int)grassBiomeForestExtensionSlider.value;
-        grassBiomeForestExtensionAmountText.text = grassBiomeForestExtensionAmount.ToString();
-        valuesAdjusterScript.grassBiomesForestExpansionPercentage = grassBiomeForestExtensionAmount;
-
-        grassBiomeForestAmount = (int)grassBiomeForestAmountSlider.value;
-        valuesAdjusterScript.grassBiomesForestSpawn = grassBiomeForestAmount;
-
-        //Jungle Rocks
-        grassBiomeJungleRocksExtensionAmount = (int)grassBiomeJungleRocksExtensionSlider.value;
-        grassBiomeJungleRocksExtensionAmountText.text = grassBiomeJungleRocksExtensionAmount.ToString();
-        valuesAdjusterScript.grassBiomesJungleRocksExpansionPercentage = grassBiomeJungleRocksExtensionAmount;
-
-        grassBiomeJungleRocksAmount = (int)grassBiomeJungleRocksAmountSlider.value;
-        valuesAdjusterScript.grassBiomesRocksSpawn = grassBiomeJungleRocksAmount;
-
-        //Flowers
-        grassBiomeFlowersExtensionAmount = (int)grassBiomeFlowersExtensionSlider.value;
-        grassBiomeFlowersExtensionAmountText.text = grassBiomeFlowersExtensionAmount.ToString();
-        valuesAdjusterScript.grassBiomesFlowersExpansionPercentage = grassBiomeFlowersExtensionAmount;
-
-        grassBiomeFlowersAmount = (int)grassBiomeFlowersAmountSlider.value;
-        valuesAdjusterScript.grassBiomesFlowersSpawn = grassBiomeFlowersAmount;
-
-        //SAND
-
-        //Sand River
-        sandBiomeRiverExtensionAmount = (int)sandBiomeRiverExtensionSlider.value;
-        sandBiomeRiverExtensionAmountText.text = sandBiomeRiverExtensionAmount.ToString();
-        valuesAdjusterScript.sandBiomesRiverExpansionPercentage = sandBiomeRiverExtensionAmount;
-
-        sandBiomeRiverAmount = (int)sandBiomeRiverAmountSlider.value;
-        valuesAdjusterScript.sandBiomesRiverSpawn = sandBiomeRiverAmount;
-
-        //Sand Rocks
-        sandBiomeSandRocksExtensionAmount = (int)sandBiomeSandRocksExtensionSlider.value;
-        sandBiomeSandRocksExtensionAmountText.text = sandBiomeSandRocksExtensionAmount.ToString();
-        valuesAdjusterScript.sandBiomesSandRocksExpansionPercentage = sandBiomeSandRocksExtensionAmount;
-
-        sandBiomeRocksAmount = (int)sandBiomeRocksAmountSlider.value;
-        valuesAdjusterScript.sandBiomesSandRocksSpawn = sandBiomeRocksAmount;
-
-        //Palm Tree
-        sandBiomePalmTreeExtensionAmount = (int)sandBiomePalmTreeExtensionSlider.value;
-        sandBiomePalmTreeExtensionAmountText.text = sandBiomePalmTreeExtensionAmount.ToString();
-        valuesAdjusterScript.sandBiomesPalmTreeExpansionPercentage = sandBiomePalmTreeExtensionAmount;
-
-        sandBiomePalmTreeAmount = (int)sandBiomePalmTreeAmountSlider.value;
-        valuesAdjusterScript.sandBiomesPalmTreeSpawn = sandBiomePalmTreeAmount;
-
-        //Cactus
-        sandBiomeCactusExtensionAmount = (int)sandBiomeCactusExtensionSlider.value;
-        sandBiomeCactusExtensionAmountText.text = sandBiomeCactusExtensionAmount.ToString();
-        valuesAdjusterScript.sandBiomesCactusExpansionPercentage = sandBiomeCactusExtensionAmount;
-
-        sandBiomeCactusAmount = (int)sandBiomeCactusAmountSlider.value;
-        valuesAdjusterScript.sandBiomesCactusSpawn = sandBiomeCactusAmount;
     }
 }

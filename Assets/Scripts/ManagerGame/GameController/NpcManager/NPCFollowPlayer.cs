@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCFollowPlayer : MonoBehaviour
@@ -27,20 +26,6 @@ public class NPCFollowPlayer : MonoBehaviour
     bool IsFollowing = false;
 
     Vector2 MoveDir;
-
-    void Awake()
-    {
-        Anim = GetComponent<Animator>();
-    }
-
-    void Update()
-    {
-        DetectPlayer();
-
-        HandleTimers();
-        
-        UpdateAnimation();
-    }
 
     void DetectPlayer()
     {

@@ -11,11 +11,6 @@ public class Door : MonoBehaviour
 
     readonly KeyCode E = KeyCode.E;
 
-    void Update()
-    {
-        OpenDoor();
-    }
-
     public void OpenDoor()
     {
         if (!IsOpen && Input.GetKeyDown(E))

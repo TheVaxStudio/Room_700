@@ -37,24 +37,6 @@ public class NPCFollowPlayerImproved : MonoBehaviour
 
     Vector2 MoveDir;
 
-    void Awake()
-    {
-        Anim = GetComponent<Animator>();
-    }
-
-    void Update()
-    {
-        if (Player == null) return;
-
-        DetectPlayer();
-
-        HandleTimers();
-
-        HandleMovement();
-
-        UpdateAnimation();
-    }
-
     void DetectPlayer()
     {
         float Dist = Vector2.Distance(transform.position,

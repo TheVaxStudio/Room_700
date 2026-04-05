@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class editModeScript : MonoBehaviour
 {
-    [Header("DON'T TOUCH")]
-    [SerializeField] private GameObject editPanel;
-
     public int selectedTypeOfTile;
 
     [SerializeField] private Image grassImage;
@@ -24,24 +21,6 @@ public class editModeScript : MonoBehaviour
     public bool isHoldingPaintButton;
 
     [SerializeField] private biomeSelector biomeSelector;
-
-    private void Update()
-    {
-        //When holding painting button in edit mode
-        if (Input.GetMouseButton(0))
-        {
-            isHoldingPaintButton = true;
-        }
-
-        //When unholding painting button in edit mode
-        if (Input.GetMouseButtonUp(0))
-        {
-            isHoldingPaintButton = false;
-            biomeSelector.NewRivers();
-            //biomeSelector.NewBiomesTransitions();
-        }
-    }
-
 
     public void grassSelected()
     {

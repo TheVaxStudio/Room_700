@@ -13,35 +13,6 @@ public class MeshBuilder : MonoBehaviour
     bool hasTheQueueAlreadyBeenRequested;
 
     ConcurrentQueue<ThreadInfo<InteracInfo>> interactThreadQueue = new ConcurrentQueue<ThreadInfo<InteracInfo>>();
-    
-    void Update()
-    {
-        if (mainThreadQueue.Count > 0)
-        {
-            hasTheQueueAlreadyBeenRequested = false;
-
-            ThreadInfo<Info> threadInfo;
-            if (mainThreadQueue.TryDequeue(out threadInfo))
-            {
-                threadInfo.callback(threadInfo.parameter);
-            }
-        }
-        else if (!hasTheQueueAlreadyBeenRequested) 
-        {
-            DungeonGenerator.Instance.OnEmptyMeshBuilderQueue();
-            hasTheQueueAlreadyBeenRequested = true;
-        }
-
-        if (interactThreadQueue.Count > 0)
-        {
-            ThreadInfo<InteracInfo> threadInfo;
-            if (interactThreadQueue.TryDequeue(out threadInfo))
-            {
-                threadInfo.callback(threadInfo.parameter);
-            }
-        }
-    }
-
 
     public void GenerateChunk(DungeonFragment fragment, Coord start)
     {

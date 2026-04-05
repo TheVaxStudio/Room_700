@@ -9,21 +9,6 @@ public class DoorManager : MonoBehaviour
 
 	public List<GameObject> Doors;
 
-    void Start()
-    {
-        GameObject[] DoorArray = GameObject.FindGameObjectsWithTag("Door02");
-
-		Doors = new List<GameObject>(DoorArray);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TryOpenDoor();
-        }
-    }
-
     public void TryOpenDoor()
     {
         foreach (GameObject Door in Doors)

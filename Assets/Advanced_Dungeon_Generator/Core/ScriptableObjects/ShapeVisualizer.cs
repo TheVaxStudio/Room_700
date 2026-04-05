@@ -36,11 +36,6 @@ public class ShapeVisualizer : MonoBehaviour
 
     public System.Random rng;
 
-    private void Start()
-    {
-        canvas = GetComponent<Renderer>();
-    }
-
     public void Draw(int type, int order)
     {
         seg = new SegmentInformation(dSh);

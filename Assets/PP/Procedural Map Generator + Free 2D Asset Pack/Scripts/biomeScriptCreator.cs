@@ -11,8 +11,6 @@ public class biomeScriptCreator : MonoBehaviour
     [SerializeField] private biomeSelector biomeSelector;
 
     [SerializeField] private GameObject gameManagerGameobject;
-    [SerializeField] private mapGenerator mapGenerator;
-
     [Header("AUTOMATIC")]
     private int biomeIDCounter = 0;
 

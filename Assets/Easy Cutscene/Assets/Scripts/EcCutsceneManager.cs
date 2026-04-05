@@ -55,17 +55,6 @@ namespace HisaGames.CutsceneManager
         [Tooltip("Delay between each character in chat typing (in seconds).")]
         public float chatTypingDelay;
 
-        void Awake()
-        {
-            instance = this;
-
-            InitCharacters();
-
-            InitProps();
-            
-            InitCutscenes(currentCutscene);
-        }
-
         void InitCharacters()
         {
             characters = new EcCharacter[characterPrefabs.Length];

@@ -184,20 +184,4 @@ public class mapGenerator : MonoBehaviour
     {
         biomeSelector.NewRivers();
     }
-
-    private void Update()
-    {
-        if (canStartTimer)
-        {
-            timer += Time.deltaTime;
-        }
-
-        if (timer > 2 && canActivateRivers)
-        {
-            ActivateNewRivers();
-            canStartTimer = false;
-            canActivateRivers = false;
-        }
-
-    }
 }

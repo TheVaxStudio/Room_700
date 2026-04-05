@@ -32,52 +32,6 @@ namespace KwaaktjePathfinder2D
         private bool isDestinationReached = true;
         private Pathfinder2D pathfinder;
 
-        void Start()
-        {
-            path = new();
-            Dictionary<Vector2Int, float> weightedTilemap = GetWeightedTilemap();
-            NodeConnectionType connectionType = NodeConnectionType.RectangleWithDiagonals;
-            if (mazeTileMap.layoutGrid.cellLayout == GridLayout.CellLayout.Hexagon)
-            {
-                connectionType = NodeConnectionType.Hexagone;
-            }
-            pathfinder = new Pathfinder2D(weightedTilemap, connectionType);
-        }
-
-        void Update()
-        {
-            if ((Input.GetMouseButtonDown(0)) & (isDestinationReached))
-            {
-                OnMouseDown();
-            }
-
-            if (isDestinationReached)
-            {
-                Vector3 cursorPosition = camera.ScreenToWorldPoint(Input.mousePosition);
-                Vector2Int cursorCell = (Vector2Int)pathTilemap.WorldToCell(cursorPosition);
-                Vector2Int playerCell = (Vector2Int)pathTilemap.WorldToCell(player.gameObject.transform.position);
-                Pathfinder2DResult pathResult = pathfinder.FindPath(playerCell, cursorCell);
-                path = pathResult.Path;
-                pathTilemap.ClearAllTiles();
-                ShowPath();
-                UpdateDistance(pathResult.distance);
-                UpdateWeightedDistance(pathResult.weightedDistance);
-            }
-
-            if (!isDestinationReached)
-            {
-                Vector3 targetPosition = mazeTileMap.CellToWorld((Vector3Int)currentTagetCell);
-
-                player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, targetPosition, playerSpeed * Time.deltaTime);
-
-                if (Vector3.Distance(player.gameObject.transform.position, targetPosition) <= 0.1f)
-                {
-                    player.gameObject.transform.position = targetPosition;
-                    NextPathPoint();
-                }
-            }
-        }
-
         private Dictionary<Vector2Int, float> GetWeightedTilemap()
         {
             Dictionary<Vector2Int, float> result = new Dictionary<Vector2Int, float>();

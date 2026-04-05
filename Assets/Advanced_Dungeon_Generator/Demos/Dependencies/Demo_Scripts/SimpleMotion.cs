@@ -9,11 +9,6 @@ public class SimpleMotion : MonoBehaviour
     public float deltaMotion;
     public float deltaRotateSpeed;
 
-    private void OnTriggerExit(Collider collider)
-    {
-        Charge(collider);
-    }
-
     public void Charge(Collider collider)
     {
         Vector3 playerDirection = collider.transform.position - transform.position;

@@ -15,14 +15,6 @@ public class SpriteTo3DVoxel : MonoBehaviour
     [Header("Output")]
     public GameObject VoxelParent; // GameObject pai para os voxels (opcional)
 
-    void Start()
-    {
-        if (SourceSprite != null)
-        {
-            ConvertSpriteTo3D();
-        }
-    }
-
     public void ConvertSpriteTo3D()
     {
         if (SourceSprite == null) 
