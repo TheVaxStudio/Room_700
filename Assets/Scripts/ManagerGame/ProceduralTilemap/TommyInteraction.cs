@@ -1,12 +1,12 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TommyInteraction : MonoBehaviour
 {
     [Header("Interaction Settings")]
     public float InteractionRange = 3f; // Distância máxima para interação
-
     public LayerMask InteractableLayer; // Layer dos objetos interagíveis
-    
     public KeyCode InteractKey = KeyCode.E; // Tecla para interagir
 
     [Header("UI")]
@@ -18,7 +18,6 @@ public class TommyInteraction : MonoBehaviour
     {
         // Raycast para detectar objetos interagíveis
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, InteractionRange, InteractableLayer))
@@ -27,16 +26,13 @@ public class TommyInteraction : MonoBehaviour
             {
                 // Novo objeto interagível
                 currentInteractable = hit.collider.gameObject;
-
                 ShowInteractionPrompt(true);
             }
         }
-
         else
         {
             // Nenhum objeto interagível
             currentInteractable = null;
-
             ShowInteractionPrompt(false);
         }
 
@@ -61,30 +57,25 @@ public class TommyInteraction : MonoBehaviour
         if (obj.CompareTag("Door"))
         {
             // Abrir porta
-            DoorRoom150 door = obj.GetComponent<DoorRoom150>();
-
+            Door door = obj.GetComponent<Door>();
             if (door != null)
             {
                 door.Open();
             }
         }
-
         else if (obj.CompareTag("Key"))
         {
             // Coletar chave
             Key key = obj.GetComponent<Key>();
-
             if (key != null)
             {
                 key.Collect();
             }
         }
-
         else if (obj.CompareTag("Bed"))
         {
             // Interagir com cama (ex: dormir)
             Bed bed = obj.GetComponent<Bed>();
-
             if (bed != null)
             {
                 bed.Interact();
