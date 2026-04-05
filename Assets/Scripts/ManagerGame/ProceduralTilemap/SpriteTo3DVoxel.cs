@@ -5,7 +5,6 @@ public class SpriteTo3DVoxel : MonoBehaviour
     [Header("Sprite to Convert")]
     public Sprite SourceSprite; // O sprite 2D do Tommy
 
-
     public Material VoxelMaterial; // Material para os voxels (pixel art)
 
     public float VoxelSize = 0.1f; // Tamanho de cada voxel (cube)
@@ -26,11 +25,21 @@ public class SpriteTo3DVoxel : MonoBehaviour
 
     public void ConvertSpriteTo3D()
     {
-        if (SourceSprite == null) return;
+        if (SourceSprite == null) 
+        {
+            Debug.LogError("Sprite de origem não atribuído!");
+            
+            return;
+        }
 
         Texture2D texture = SourceSprite.texture;
 
-        if (texture == null) return;
+        if (texture == null) 
+        {
+            Debug.LogError("Textura não encontrada!");
+            
+            return;
+        }
 
         // Criar GameObject pai se não existir
         if (VoxelParent == null)
