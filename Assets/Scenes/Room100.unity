@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &235914860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3594339552099501760, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
+  m_PrefabInstance: {fileID: 652185714}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fffbd6f4549c35c4d8536a759154b2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &652185714
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -406,6 +417,10 @@ PrefabInstance:
       propertyPath: BackgroundImage
       value: 
       objectReference: {fileID: 5448613865745962570}
+    - target: {fileID: 9106393198821557922, guid: 6ebc446465375ab4bb076c36625fbfba, type: 3}
+      propertyPath: KeyPickupSource
+      value: 
+      objectReference: {fileID: 235914860}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
