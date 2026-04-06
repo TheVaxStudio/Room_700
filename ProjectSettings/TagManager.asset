@@ -32,6 +32,7 @@ TagManager:
   - SettingsText
   - MainMenu
   - DoorRoom100
+  - Info
   layers:
   - Default
   - TransparentFX

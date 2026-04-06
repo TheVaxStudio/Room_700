@@ -12,21 +12,7 @@ public class PlayerInteract : MonoBehaviour
     string RoomScene = "Room01";
 
     bool IsInteracting = false;
-
-    float Speed;
-
     public List<Door> NearbyDoors = new List<Door>();
-
-    void Update()
-    {
-        if (Input.GetKeyDown(InteractKey) && !IsInteracting)
-        {
-            if (NearbyDoors.Count > 0)
-            {
-                StartCoroutine(InteractWithDoor(NearbyDoors[0]));
-            }
-        }
-    }
 
     IEnumerator InteractWithDoor(Door door)
     {
@@ -74,43 +60,5 @@ public class PlayerInteract : MonoBehaviour
         }
 
         IsInteracting = false;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Door door = collision.gameObject.GetComponent<Door>();
-
-        if (door != null && !NearbyDoors.Contains(door))
-        {
-            switch (collision.gameObject.tag)
-            {
-                case "Door01":
-                case "Door02":
-                case "Door03":
-                case "Door04":
-                    NearbyDoors.Add(door);
-                    
-                    break;
-            }
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        Door door = collision.gameObject.GetComponent<Door>();
-
-        if (door != null && NearbyDoors.Contains(door))
-        {
-            switch (collision.gameObject.tag)
-            {
-                case "Door01":
-                case "Door02":
-                case "Door03":
-                case "Door04":
-                    NearbyDoors.Remove(door);
-
-                    break;
-            }
-        }
     }
 }

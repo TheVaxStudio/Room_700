@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3970229626198229936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 819979492000276888}
+  - component: {fileID: 1711183396790123317}
+  m_Layer: 0
+  m_Name: Room150
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &819979492000276888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3970229626198229936}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1711183396790123317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3970229626198229936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e79db700f64be41b4307ee2aeb6eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Procedural3DTilemapGenerator
+  FloorPrefab: {fileID: 2350098882405641365, guid: 358842a9bb98b0e499b7699178557908, type: 3}
+  WallPrefab: {fileID: 3489979494123372309, guid: a1995e6437800344eb78f0abe2ffb147, type: 3}
+  PlayerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
+  DoorPrefab: {fileID: 930906879691130636, guid: 3d742bf2df9c93a44826a32330e0ef50, type: 3}
+  BedPrefab: {fileID: 4815204354568481180, guid: 209c2d2b4fc7f2a4e9501d968b302635, type: 3}
+  KeyPrefab: {fileID: 5024492031455265544, guid: dad16f1080b53f2429bd1bec79d7fc81, type: 3}

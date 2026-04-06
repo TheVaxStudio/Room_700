@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4767671800384107401}
-  - component: {fileID: 4644293320593341990}
+  - component: {fileID: 1809770573453966086}
+  - component: {fileID: 6768508066151113297}
   m_Layer: 0
   m_Name: GenerateDungeon
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4644293320593341990
+--- !u!114 &1809770573453966086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,15 +42,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 8157779801963150471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7da7f1c90e11447adb216f4fe4d01e, type: 3}
+  m_Script: {fileID: 11500000, guid: d94dc9ed7c03e79408121aa93c2e1266, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  floorPrefab: {fileID: 2350098882405641365, guid: 358842a9bb98b0e499b7699178557908, type: 3}
-  wallPrefab: {fileID: 4815251270761980214, guid: 1ece671a1199cb944bb72d53d13aa321, type: 3}
-  playerPrefab: {fileID: 5136059750394123811, guid: 79713e3b6a69e404b956c67f0979ae26, type: 3}
-  DoorPrefab: {fileID: 6995773550775222975, guid: 9c231d12afce5854198a3ec41c590bf6, type: 3}
-  gridSize: 512
-  roomSize: 32
-  corridorWidth: 4
-  wallThickness: 1
-  maxTilesPerFrame: 4096
+  m_EditorClassIdentifier: Assembly-CSharp::MeshBuilder
+--- !u!114 &6768508066151113297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157779801963150471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5572a1a7e3e03b4aaf891269aef234e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  useRandomSeed: 1
+  generateDungeonAtStart: 1
+  roomsToLoadAtStart: 2
+  roomsLoadOffset: 1
+  roomDestructionOffset: 2
+  destroyFarBackRooms: 1
+  siteToCharge: 0
+  showDebugOptions: 1
+  canGenerateSites: 1
+  seed: 0
+  dungeon: {fileID: 11400000, guid: 00eda2c8950aee740bbe459219fdd25e, type: 2}
+  loaderLayer: 0
+  usePrefabLoader: 0
+  loader: {fileID: 8157779801963150471}
+  dungeonFragments:
+  - mainObject: {fileID: 0}
+    isGenerated: 0
+    position: {x: 0, y: 0, z: 0}
+    acInfo:
+      normalAccessGen: 0
+      hasEntrance: 0
+      entranceDirection: 0
+      entranceEnd: {x: 0, y: 0}
+      hasExit: 0
+      exitDirection: 0
+      exitStart: {x: 0, y: 0}
+    chunkSize: 20
+    chunkWidth: 5
+    chunkHeight: 5
+    useBorder: 0
+    borderSize: 0
+    parentSegment: 0
+    dungeonOrder: 0
+    useDecorations: 0
+    useInteractables: 0
+  dungeonFragmentsAmount: 0

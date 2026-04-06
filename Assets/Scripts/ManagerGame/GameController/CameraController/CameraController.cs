@@ -15,20 +15,6 @@ public class CameraController : MonoBehaviour
 
     public Camera NpcCamera;
 
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-
-            return;
-        }
-
-        Instance = this;
-
-        ActivatePlayerCamera();
-    }
-
     public void ActivatePlayerCamera()
     {
         PlayerCamera.enabled = true;

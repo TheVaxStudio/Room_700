@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7046550651508540250}
   - component: {fileID: 7301999307743444902}
   - component: {fileID: 8847699029789357939}
-  - component: {fileID: 5543382037855154819}
+  - component: {fileID: 929290630971673418}
   m_Layer: 0
   m_Name: Lyra
   m_TagString: Lyra
@@ -123,6 +123,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5166501698152136882
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -168,6 +169,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -64294222, guid: ac0dccf840e55ca4f99ce3d96983e849, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -177,7 +179,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &7046550651508540250
 BoxCollider2D:
@@ -274,7 +275,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5543382037855154819
+--- !u!114 &929290630971673418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,12 +284,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5260005783469611988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28355ae5dead83d42b2ce90c1efff99d, type: 3}
+  m_Script: {fileID: 11500000, guid: b0ed209f87f1942459e9c3bc210dd1dd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCFollowPlayerImproved
+  m_EditorClassIdentifier: Assembly-CSharp::NPCFollowPlayer
   Player: {fileID: 0}
   Sr: {fileID: 5166501698152136882}
-  Speed: 0.6
-  DetectionRange: 20
-  StartFollowDelay: 10.5
-  StopFollowDelay: 15.5

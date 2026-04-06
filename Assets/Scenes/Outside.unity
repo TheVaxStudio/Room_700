@@ -226,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4894009833689633687, guid: 295713e151160b6428f2ad2a59c0d82f, type: 3}
       propertyPath: m_Name
-      value: HudCutscene
+      value: HudCutsceneOutside
       objectReference: {fileID: 0}
     - target: {fileID: 8994561856417805372, guid: 295713e151160b6428f2ad2a59c0d82f, type: 3}
       propertyPath: Hud
@@ -507,6 +507,10 @@ PrefabInstance:
       propertyPath: CharacterPortrait
       value: 
       objectReference: {fileID: 1995990663}
+    - target: {fileID: 2361450905085397911, guid: 01a6ff0d0798b554cb030376b08481f4, type: 3}
+      propertyPath: ChoiceButtons.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4124790796908482095, guid: 01a6ff0d0798b554cb030376b08481f4, type: 3}
       propertyPath: m_Name
       value: VnOutsideManager

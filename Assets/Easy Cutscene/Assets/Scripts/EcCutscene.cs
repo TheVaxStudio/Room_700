@@ -105,11 +105,6 @@ namespace HisaGames.Cutscene
         [Tooltip("Array of active props data for the current cutscene.")]
         PropsData[] activePropsData;
 
-        void Start()
-        {
-            StartCutscene();
-        }
-
         public void StartCutscene()
         {
             currentID = 0;
@@ -121,35 +116,6 @@ namespace HisaGames.Cutscene
             typingTimer = EcCutsceneManager.instance.chatTypingDelay;
 
             PlayCutscene();
-        }
-
-        void Update()
-        {
-            AutoPlayingCutscene();
-
-            if (startTyping)
-            {
-                StartTypingAnimation(chatText, chatTextString);
-            }
-
-            for (int i = 0; i < cutsceneData[currentID].charactersData.Length; i++)
-            {
-                string tempName = cutsceneData[currentID].charactersData[i].name;
-
-                EcCharacter character = EcCutsceneManager.instance.getCharacterObject(tempName);
-                
-                character.CheckingCharacterState();
-            }
-
-            if (activePropsData != null)
-            {
-                for (int i = 0; i < activePropsData.Length; i++)
-                {
-                    EcProps props = EcCutsceneManager.instance.getPropObject(activePropsData[i].name);
-
-                    props.PropUpdate();
-                }
-            }
         }
 
         void PlayCutscene()

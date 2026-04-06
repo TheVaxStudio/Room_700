@@ -48,16 +48,6 @@ public class HudCutscene : MonoBehaviour
 
     float BackgroundFadeDuration = 0.6f;
 
-    void Start()
-    {
-        DialogueFinished = false;
-
-        if (StartOnAwake)
-        {
-            TriggerCutscene();
-        }
-    }
-
     public void TriggerCutscene()
     {
         CurrentLine = 0;
@@ -78,30 +68,6 @@ public class HudCutscene : MonoBehaviour
     {
         // método chamado por KeyPickup para iniciar cutscene
         TriggerCutscene();
-    }
-
-    void Update()
-    {
-        if (DialogueFinished)
-        {
-            return;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (TypingCoroutine != null)
-            {
-                StopCoroutine(TypingCoroutine);
-
-                DialogueText.text = Story[CurrentLine].Dialogue;
-
-                TypingCoroutine = null;
-                
-                return;
-            }
-
-            NextLine();
-        }
     }
 
     void ShowLine()

@@ -37,24 +37,6 @@ public class NPCFollowPlayerImproved : MonoBehaviour
 
     Vector2 MoveDir;
 
-    void Awake()
-    {
-        Anim = GetComponent<Animator>();
-    }
-
-    void Update()
-    {
-        if (Player == null) return;
-
-        DetectPlayer();
-
-        HandleTimers();
-
-        HandleMovement();
-
-        UpdateAnimation();
-    }
-
     void DetectPlayer()
     {
         float Dist = Vector2.Distance(transform.position,
@@ -157,14 +139,14 @@ public class NPCFollowPlayerImproved : MonoBehaviour
         // CORREÇÃO: Lógica para decidir se a animação é Horizontal ou Vertical
         if (Mathf.Abs(MoveDir.x) > Mathf.Abs(MoveDir.y))
         {
-            AnimName = (MoveDir.x > 0) ? "WalkingRight" 
-            : "WalkingLeft";
+            AnimName = (MoveDir.x > 0) ? "WalkRight" 
+            : "WalkLeft";
         }
 
         else
         {
-            AnimName = (MoveDir.y > 0) ? "WalkingUp" 
-            : "WalkingDown";
+            AnimName = (MoveDir.y > 0) ? "WalkUp" 
+            : "WalkDown";
         }
 
         Anim.Play(AnimName);

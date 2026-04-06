@@ -547,6 +547,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1615877636}
     - target: {fileID: 7048254663021241014, guid: db19b233b71c9b04d8ad8ee5b0a0b1d7, type: 3}
+      propertyPath: StartOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7048254663021241014, guid: db19b233b71c9b04d8ad8ee5b0a0b1d7, type: 3}
       propertyPath: CharacterImage
       value: 
       objectReference: {fileID: 713212347}

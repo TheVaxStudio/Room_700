@@ -21,35 +21,6 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
     [Header("Scene Name")]
     public string SceneToLoad = "Outside";
 
-    void Start()
-    {
-        if (InfoText != null)
-        {
-            InfoText.text = "Pressione R para começar";
-
-            if (Input.GetKeyDown(R))
-            {
-                LoadScene();
-            }
-        }
-
-        if (SettingsPanelText != null &&
-        SettingsPanelText.tag == "SettingsText")
-        {
-            SettingsPanelText.text = "Clique para abrir as configurações";
-
-            ToggleSettingsPanel();
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            LoadScene();
-        }
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         ToggleSettingsPanel();
@@ -60,6 +31,23 @@ public class MainMenuController : MonoBehaviour, IPointerClickHandler
         if (SettingsPanel != null)
         {
             SettingsPanel.SetActive(!SettingsPanel.activeSelf);
+
+            HideLanguageOptions();
+        }
+    }
+
+    void HideLanguageOptions()
+    {
+        if (SettingsPanel == null)
+        {
+            return;
+        }
+
+        Transform languageMenuTransform = SettingsPanel.transform.Find("LanguageMenu");
+
+        if (languageMenuTransform != null)
+        {
+            languageMenuTransform.gameObject.SetActive(false);
         }
     }
 

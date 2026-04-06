@@ -358,17 +358,4 @@ public class VNManager : MonoBehaviour
             }
         }
     }
-
-    // Input Handling
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && !IsDisplayingText)
-        {
-            HudScene.enabled = true;
-
-            HudScene.gameObject.SetActive(true);
-
-            ShowNextLine();
-        }
-    }
 }

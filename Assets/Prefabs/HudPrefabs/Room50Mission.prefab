@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 8554712908288921896}
   - component: {fileID: 5211195900304103012}
   - component: {fileID: 1838833233092776156}
+  - component: {fileID: 5134257545804091538}
   m_Layer: 5
   m_Name: Room50Quest
   m_TagString: Untagged
@@ -207,6 +208,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -281,3 +283,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5134257545804091538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7587170628897049329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313657c04400c4549b986e571d5ceef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoftKitty.WSFL.LocalizationTMP

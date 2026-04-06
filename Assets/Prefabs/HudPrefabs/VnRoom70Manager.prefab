@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoseCutscene
   Hud: {fileID: 0}
+  StartOnAwake: 1
   DialogueText: {fileID: 0}
   NameText: {fileID: 0}
   CharacterImage: {fileID: 0}
@@ -60,3 +61,4 @@ MonoBehaviour:
   OnDialogueEnd:
     m_PersistentCalls:
       m_Calls: []
+  KeyPickupSource: {fileID: 0}

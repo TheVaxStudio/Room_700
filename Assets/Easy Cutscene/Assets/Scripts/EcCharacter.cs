@@ -32,18 +32,6 @@ namespace HisaGames.Character
         [Tooltip("Dictionary to map sprite names to their corresponding sprites.")]
         Dictionary<string, Sprite> SpriteDictionary;
 
-        void Awake()
-        {
-            SpriteDictionary = new Dictionary<string, Sprite>();
-
-            foreach (var Sprite in SpriteImages)
-            {
-                SpriteDictionary[Sprite.name] = Sprite;
-            }
-
-            Sp = GetComponentInChildren<SpriteRenderer>();
-        }
-
         public void ChangeSpriteByName(string spriteName)
         {
             if (Sp != null)
